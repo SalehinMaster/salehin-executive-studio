@@ -209,3 +209,6 @@ export default function PitchPage() {
     </main>
   );
 }
+git add .
+git commit -m "Added animated investor pitch page"
+git push
