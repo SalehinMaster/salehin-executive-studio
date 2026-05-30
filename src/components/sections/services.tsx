@@ -11,8 +11,8 @@ export function Services() {
       <FadeIn>
         <SectionHeading
           eyebrow="Services"
-          title="Built for founders who lead in public."
-          description="Three integrated capabilities — one authority standard across narrative, systems, and presence."
+          title="Five capabilities. One operating system."
+          description="LinkedIn, strategy, AI, design, and distribution — integrated under a single standard for authority and growth."
         />
       </FadeIn>
       <div className="mt-20 divide-y divide-border">
@@ -31,7 +31,7 @@ export function Services() {
       </div>
       <FadeIn className="mt-12">
         <TextLink href="/services">
-          All capabilities
+          Full service stack
           <ArrowRight className="size-4 stroke-[1.5]" />
         </TextLink>
       </FadeIn>

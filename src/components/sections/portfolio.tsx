@@ -11,8 +11,8 @@ export function Portfolio() {
       <FadeIn>
         <SectionHeading
           eyebrow="Portfolio"
-          title="Authority systems in market."
-          description="Founders who moved from visible expertise to unmistakable authority — with systems that keep working."
+          title="Leaders who turned visibility into revenue."
+          description="CEOs, founders, and operators who installed a personal branding OS — and let it compound."
         />
       </FadeIn>
       <div className="mt-20 divide-y divide-border">

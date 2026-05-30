@@ -9,18 +9,18 @@ export function CTA() {
       <FadeIn>
         <div className="border border-border bg-inverse px-8 py-20 text-center md:px-20 md:py-28">
           <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-accent">
-            Begin
+            Get started
           </p>
           <h2 className="mx-auto mt-6 max-w-2xl font-display text-4xl font-medium leading-[1.12] text-background sm:text-5xl">
-            Build the authority your company requires.
+            Install the personal brand your market expects.
           </h2>
           <p className="mx-auto mt-6 max-w-lg text-sm leading-relaxed text-background/65">
-            Tell us where you are and where you need to be seen. We respond
-            within two business days with fit, scope, and availability.
+            Share where you are and where you need to be seen. We respond within
+            two business days with fit, scope, and next steps.
           </p>
           <div className="mt-12 flex flex-wrap items-center justify-center gap-10">
             <ButtonLink href="/contact" variant="ghost">
-              Start a project
+              Book a strategy call
               <ArrowRight className="size-4 stroke-[1.5]" />
             </ButtonLink>
             <ButtonLink
@@ -28,7 +28,7 @@ export function CTA() {
               variant="ghost"
               className="text-background/55 hover:border-background/70 hover:text-background"
             >
-              The studio
+              About the studio
             </ButtonLink>
           </div>
         </div>

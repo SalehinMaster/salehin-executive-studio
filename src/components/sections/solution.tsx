@@ -9,8 +9,8 @@ export function Solution() {
       <FadeIn>
         <SectionHeading
           eyebrow="Solution"
-          title="Systems that make authority inevitable."
-          description="Strategy defines the standard. AI scales the output. Design ensures every signal feels inevitable — not improvised."
+          title="Personal branding, run like infrastructure."
+          description="Strategy sets the standard. AI scales execution. Design makes every signal feel inevitable — not improvised."
           invert
         />
       </FadeIn>

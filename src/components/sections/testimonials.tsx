@@ -9,7 +9,7 @@ export function Testimonials() {
       <FadeIn>
         <SectionHeading
           eyebrow="Testimonials"
-          title="What founders say when the system works."
+          title="What leaders say when the OS is live."
           align="center"
           className="mx-auto max-w-3xl"
         />

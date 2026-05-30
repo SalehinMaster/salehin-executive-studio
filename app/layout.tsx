@@ -15,9 +15,9 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Salehin Executive Studio",
+  title: "Salehin Executive Studio — AI-Powered Personal Branding OS",
   description:
-    "We build AI-powered authority systems for founders — luxury, minimal, and strategic by design.",
+    "Premium personal branding infrastructure for founders, CEOs, and leaders — LinkedIn ghostwriting, strategy, AI content systems, and authority building.",
 };
 
 export default function RootLayout({

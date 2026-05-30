@@ -9,8 +9,8 @@ export function Problem() {
       <FadeIn>
         <SectionHeading
           eyebrow="Problem"
-          title="Founders win on expertise. Markets reward authority."
-          description="Without a system, visibility stays accidental — and authority never compounds."
+          title="You built the business. Your brand didn't keep pace."
+          description="Without infrastructure, visibility stays accidental — and revenue leaves on the table."
         />
       </FadeIn>
       <div className="mt-20 grid gap-px border border-border bg-border md:grid-cols-3">

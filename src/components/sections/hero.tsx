@@ -10,24 +10,24 @@ export function Hero() {
         <div className="flex items-center gap-4">
           <span className="h-px w-12 bg-accent" aria-hidden />
           <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-accent">
-            AI · Authority · Systems
+            AI-Powered Personal Branding OS
           </p>
         </div>
         <h1 className="mt-8 max-w-4xl font-display text-5xl font-medium leading-[1.08] tracking-tight text-foreground sm:text-6xl md:text-7xl">
-          We build AI-powered authority systems for founders.
+          The operating system for executive visibility.
         </h1>
         <p className="mt-8 max-w-xl text-base leading-relaxed text-muted md:text-lg">
-          Luxury-grade, minimal by design, and strategic at the core — we
-          engineer how you are perceived, published, and remembered across every
-          touchpoint that builds trust.
+          We build personal branding infrastructure for leaders who cannot
+          afford to be invisible — strategy, content, and AI systems engineered
+          to compound authority, trust, and revenue.
         </p>
         <div className="mt-12 flex flex-wrap items-center gap-10">
           <ButtonLink href="/contact">
-            Request consultation
+            Book a strategy call
             <ArrowRight className="size-4 stroke-[1.5]" />
           </ButtonLink>
           <ButtonLink href="/portfolio" variant="secondary">
-            Selected work
+            View outcomes
           </ButtonLink>
         </div>
       </FadeIn>
