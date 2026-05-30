@@ -1,0 +1,126 @@
+/**
+ * Salehin Executive Studio — premium utilities
+ * Glassmorphism · SaaS surfaces · gradient glow
+ */
+
+/* ─── Glass cards ─── */
+@utility glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-glass);
+}
+
+@utility glass-card-strong {
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(var(--glass-blur-strong));
+  -webkit-backdrop-filter: blur(var(--glass-blur-strong));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-glass);
+}
+
+@utility glass-nav {
+  background: color-mix(in srgb, var(--palette-bg) 82%, transparent);
+  backdrop-filter: blur(var(--glass-blur-strong));
+  -webkit-backdrop-filter: blur(var(--glass-blur-strong));
+  border-bottom: 1px solid var(--glass-border);
+}
+
+/* ─── Gradient glow ─── */
+@utility glow-primary {
+  box-shadow: var(--shadow-glow-primary);
+}
+
+@utility glow-secondary {
+  box-shadow: var(--shadow-glow-secondary);
+}
+
+@utility glow-soft {
+  box-shadow: var(--shadow-glow-soft);
+}
+
+@utility glow-border-primary {
+  border-color: var(--palette-border-glow);
+  box-shadow:
+    var(--shadow-glass),
+    0 0 0 1px color-mix(in srgb, var(--palette-primary) 20%, transparent),
+    var(--shadow-glow-soft);
+}
+
+/* ─── Brand gradients ─── */
+@utility bg-gradient-brand {
+  background-image: var(--gradient-brand);
+}
+
+@utility bg-gradient-brand-subtle {
+  background-image: var(--gradient-brand-subtle);
+}
+
+@utility text-gradient-brand {
+  background-image: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ─── SaaS surfaces ─── */
+@utility surface-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+@utility surface-elevated {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-xl);
+}
+
+@utility panel-inverse {
+  background: var(--inverse);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-xl);
+  background-image: var(--gradient-brand-subtle);
+}
+
+/* ─── Interactive hover (compose with glass-card) ─── */
+@utility hover-lift {
+  transition:
+    transform var(--duration-normal) var(--ease-out-expo),
+    box-shadow var(--duration-normal) var(--ease-out-expo),
+    border-color var(--duration-normal) var(--ease-out-expo);
+
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-2px);
+      border-color: var(--glass-border-hover);
+      box-shadow: var(--shadow-glass), var(--shadow-glow-soft);
+    }
+  }
+}
+
+/* ─── Eyebrow / label typography ─── */
+@utility text-eyebrow {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+}
+
+@utility text-label {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+/* ─── Focus ring (a11y) ─── */
+@utility focus-ring {
+  &:focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--palette-primary) 60%, transparent);
+    outline-offset: 2px;
+  }
+}

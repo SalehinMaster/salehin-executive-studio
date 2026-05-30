@@ -7,7 +7,7 @@ import { portfolioItems } from "@/lib/home-content";
 
 export function Portfolio() {
   return (
-    <Section id="portfolio" className="border-t border-border bg-surface">
+    <Section id="portfolio" className="border-t border-border bg-surface/50">
       <FadeIn>
         <SectionHeading
           eyebrow="Portfolio"
@@ -19,7 +19,7 @@ export function Portfolio() {
         {portfolioItems.map((item, index) => (
           <FadeIn key={item.title} delay={index * 0.08}>
             <article className="grid gap-4 py-10 md:grid-cols-[12rem_1fr_2fr] md:items-baseline md:gap-10">
-              <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-accent">
+              <p className="text-eyebrow text-secondary">
                 {item.category}
               </p>
               <h3 className="font-display text-2xl font-medium text-foreground">

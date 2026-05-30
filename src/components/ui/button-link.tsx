@@ -18,13 +18,13 @@ export function ButtonLink({
     <Link
       href={href}
       className={cn(
-        "inline-flex h-11 items-center justify-center gap-2 px-1 text-[13px] font-medium uppercase tracking-[0.18em] transition-colors",
+        "focus-ring inline-flex h-11 items-center justify-center gap-2 rounded-lg px-6 text-label transition-all",
         variant === "primary" &&
-          "border-b border-foreground text-foreground hover:border-accent hover:text-accent",
+          "bg-primary text-foreground shadow-glow-primary hover:bg-primary-hover hover:shadow-[var(--shadow-glow-primary),0_0_60px_rgba(124,58,237,0.4)]",
         variant === "secondary" &&
-          "text-muted hover:text-foreground",
+          "glass-card border-border-strong text-foreground hover:border-primary/40 hover:shadow-glow-soft",
         variant === "ghost" &&
-          "border-b border-background/40 text-background hover:border-background",
+          "border border-border-strong bg-transparent text-foreground hover:border-primary/50 hover:bg-primary/10",
         className,
       )}
     >

@@ -8,8 +8,8 @@ export function Hero() {
     <Section id="hero" className="pt-28 pb-20 md:pt-40 md:pb-28">
       <FadeIn>
         <div className="flex items-center gap-4">
-          <span className="h-px w-12 bg-accent" aria-hidden />
-          <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-accent">
+          <span className="h-px w-12 bg-primary" aria-hidden />
+          <p className="text-eyebrow text-primary">
             AI-Powered Personal Branding OS
           </p>
         </div>

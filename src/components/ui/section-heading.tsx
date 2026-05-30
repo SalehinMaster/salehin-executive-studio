@@ -30,17 +30,17 @@ export function SectionHeading({
           className={cn(
             "flex items-center gap-4",
             align === "center" && "justify-center",
-            invert ? "text-accent" : "text-accent",
+            "text-primary",
           )}
         >
           <span
             className={cn(
-              "h-px w-10 bg-accent",
+              "h-px w-10 bg-primary",
               align === "center" && "hidden sm:block",
             )}
             aria-hidden
           />
-          <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-accent">
+          <p className="text-eyebrow text-primary">
             {eyebrow}
           </p>
         </div>
@@ -48,7 +48,7 @@ export function SectionHeading({
       <h2
         className={cn(
           "font-display text-4xl font-medium leading-[1.15] tracking-tight sm:text-5xl",
-          invert ? "text-background" : "text-foreground",
+          invert ? "text-on-inverse" : "text-foreground",
           eyebrow && "mt-5",
         )}
       >
@@ -58,7 +58,7 @@ export function SectionHeading({
         <p
           className={cn(
             "mt-5 text-base leading-relaxed md:text-lg",
-            invert ? "text-background/70" : "text-muted",
+            "text-muted",
           )}
         >
           {description}

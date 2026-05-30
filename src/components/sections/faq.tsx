@@ -20,7 +20,7 @@ export function FAQ() {
                 <span className="font-display text-xl font-medium text-foreground md:text-2xl">
                   {item.question}
                 </span>
-                <span className="mt-1 shrink-0 text-accent transition-transform duration-300 group-open:rotate-45">
+                <span className="mt-1 shrink-0 text-primary transition-transform duration-300 group-open:rotate-45">
                   +
                 </span>
               </summary>

@@ -8,7 +8,7 @@ type HeaderProps = {
 
 export function Header({ pathname }: HeaderProps) {
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur-md">
+    <header className="glass-nav sticky top-0 z-50">
       <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-6 md:px-10">
         <Link
           href="/"

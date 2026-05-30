@@ -1,0 +1,142 @@
+/**
+ * Salehin Executive Studio — design tokens
+ * Dark luxury palette · Linear / Stripe / Framer inspired
+ */
+
+:root {
+  /* ─── Core palette ─── */
+  --palette-bg: #050816;
+  --palette-bg-elevated: #0a0f24;
+  --palette-bg-surface: #0f1529;
+  --palette-bg-muted: #141b33;
+  --palette-text: #f8fafc;
+  --palette-text-muted: #94a3b8;
+  --palette-text-subtle: #64748b;
+  --palette-primary: #7c3aed;
+  --palette-primary-hover: #8b5cf6;
+  --palette-primary-muted: #6d28d9;
+  --palette-secondary: #06b6d4;
+  --palette-secondary-hover: #22d3ee;
+  --palette-border: rgba(248, 250, 252, 0.08);
+  --palette-border-strong: rgba(248, 250, 252, 0.14);
+  --palette-border-glow: rgba(124, 58, 237, 0.35);
+
+  /* ─── Semantic aliases (used across components) ─── */
+  --background: var(--palette-bg);
+  --foreground: var(--palette-text);
+  --muted: var(--palette-text-muted);
+  --subtle: var(--palette-text-subtle);
+  --primary: var(--palette-primary);
+  --primary-hover: var(--palette-primary-hover);
+  --secondary: var(--palette-secondary);
+  --secondary-hover: var(--palette-secondary-hover);
+  --accent: var(--palette-primary);
+  --border: var(--palette-border);
+  --border-strong: var(--palette-border-strong);
+  --surface: var(--palette-bg-surface);
+  --surface-elevated: var(--palette-bg-elevated);
+  --inverse: var(--palette-bg-muted);
+  --on-inverse: var(--palette-text);
+
+  /* ─── Glass ─── */
+  --glass-bg: rgba(15, 21, 41, 0.55);
+  --glass-bg-strong: rgba(15, 21, 41, 0.72);
+  --glass-border: rgba(248, 250, 252, 0.1);
+  --glass-border-hover: rgba(124, 58, 237, 0.4);
+  --glass-blur: 16px;
+  --glass-blur-strong: 24px;
+
+  /* ─── Spacing (4px base, premium scale) ─── */
+  --space-0: 0;
+  --space-1: 0.25rem; /* 4 */
+  --space-2: 0.5rem; /* 8 */
+  --space-3: 0.75rem; /* 12 */
+  --space-4: 1rem; /* 16 */
+  --space-5: 1.25rem; /* 20 */
+  --space-6: 1.5rem; /* 24 */
+  --space-8: 2rem; /* 32 */
+  --space-10: 2.5rem; /* 40 */
+  --space-12: 3rem; /* 48 */
+  --space-16: 4rem; /* 64 */
+  --space-20: 5rem; /* 80 */
+  --space-24: 6rem; /* 96 */
+  --space-32: 8rem; /* 128 */
+  --space-section: var(--space-24);
+  --space-section-lg: 9rem;
+  --space-container-x: 1.5rem;
+  --space-container-x-md: 2.5rem;
+
+  /* ─── Typography ─── */
+  --text-xs: 0.6875rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
+  --text-7xl: 4.5rem;
+  --leading-tight: 1.08;
+  --leading-snug: 1.15;
+  --leading-relaxed: 1.65;
+  --tracking-tight: -0.02em;
+  --tracking-eyebrow: 0.28em;
+  --tracking-label: 0.18em;
+
+  /* ─── Radius ─── */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.875rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* ─── Shadows & glow ─── */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.45);
+  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.25);
+  --shadow-glow-primary: 0 0 40px rgba(124, 58, 237, 0.35);
+  --shadow-glow-secondary: 0 0 40px rgba(6, 182, 212, 0.25);
+  --shadow-glow-soft: 0 0 80px rgba(124, 58, 237, 0.15);
+
+  /* ─── Motion ─── */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+
+  /* ─── Gradients ─── */
+  --gradient-brand: linear-gradient(
+    135deg,
+    var(--palette-primary) 0%,
+    var(--palette-secondary) 100%
+  );
+  --gradient-brand-subtle: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--palette-primary) 24%, transparent) 0%,
+    color-mix(in srgb, var(--palette-secondary) 16%, transparent) 100%
+  );
+  --gradient-surface: linear-gradient(
+    180deg,
+    var(--palette-bg-elevated) 0%,
+    var(--palette-bg) 100%
+  );
+  --gradient-mesh: radial-gradient(
+      ellipse 80% 50% at 50% -20%,
+      color-mix(in srgb, var(--palette-primary) 22%, transparent),
+      transparent
+    ),
+    radial-gradient(
+      ellipse 55% 45% at 100% 0%,
+      color-mix(in srgb, var(--palette-secondary) 12%, transparent),
+      transparent
+    ),
+    radial-gradient(
+      ellipse 40% 35% at 0% 50%,
+      color-mix(in srgb, var(--palette-primary) 8%, transparent),
+      transparent
+    );
+}
