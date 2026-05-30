@@ -7,6 +7,7 @@ type ButtonLinkProps = {
   variant?: "primary" | "secondary" | "ghost";
   className?: string;
   onClick?: () => void;
+  tabIndex?: number;
 };
 
 export function ButtonLink({
@@ -15,13 +16,15 @@ export function ButtonLink({
   variant = "primary",
   className,
   onClick,
+  tabIndex,
 }: ButtonLinkProps) {
   return (
     <Link
       href={href}
       onClick={onClick}
+      tabIndex={tabIndex}
       className={cn(
-        "focus-ring inline-flex h-11 items-center justify-center gap-2 rounded-lg px-6 text-label transition-all",
+        "focus-ring touch-target inline-flex min-h-11 items-center justify-center gap-2 rounded-lg px-6 text-label transition-all",
         variant === "primary" &&
           "bg-primary text-foreground shadow-glow-primary hover:bg-primary-hover hover:shadow-[var(--shadow-glow-primary),0_0_60px_rgba(124,58,237,0.4)]",
         variant === "secondary" &&

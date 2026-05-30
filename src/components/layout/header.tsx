@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ButtonLink } from "@/components/ui/button-link";
 import { routes, strategyCallHref } from "@/lib/routes";
 import { cn } from "@/lib/utils";
@@ -14,6 +14,12 @@ type HeaderProps = {
 export function Header({ pathname }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const mobileNavRef = useRef<HTMLElement>(null);
+
+  const closeMobileMenu = useCallback(() => {
+    setMobileOpen(false);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -30,20 +36,39 @@ export function Header({ pathname }: HeaderProps) {
   }, [mobileOpen]);
 
   useEffect(() => {
-    setMobileOpen(false);
-  }, [pathname]);
+    if (!mobileOpen) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        closeMobileMenu();
+        menuButtonRef.current?.focus();
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [mobileOpen, closeMobileMenu]);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const firstLink = mobileNavRef.current?.querySelector<HTMLElement>(
+      "a, button",
+    );
+    firstLink?.focus();
+  }, [mobileOpen]);
 
   return (
     <header
       className={cn(
-        "glass-nav sticky top-0 z-50",
+        "glass-nav sticky top-0 z-50 pt-[env(safe-area-inset-top,0px)]",
         scrolled && "glass-nav-scrolled",
       )}
     >
-      <div className="mx-auto flex h-[4.5rem] max-w-6xl items-center justify-between gap-6 px-container-x md:h-20 md:px-container-x-md">
+      <div className="mx-auto flex h-[var(--header-height)] max-w-6xl items-center justify-between gap-4 px-container-x md:px-container-x-md">
         <Link
           href="/"
-          className="focus-ring font-display text-xl font-medium tracking-tight text-foreground transition-opacity hover:opacity-90"
+          className="focus-ring font-display text-lg font-medium tracking-tight text-foreground transition-opacity hover:opacity-90 sm:text-xl"
         >
           Salehin
         </Link>
@@ -75,28 +100,34 @@ export function Header({ pathname }: HeaderProps) {
         </div>
 
         <button
+          ref={menuButtonRef}
           type="button"
-          className="focus-ring glass-card flex size-10 items-center justify-center rounded-lg text-foreground lg:hidden"
+          className="focus-ring glass-card touch-target flex size-11 items-center justify-center rounded-lg text-foreground lg:hidden"
           aria-expanded={mobileOpen}
           aria-controls="mobile-nav"
+          aria-haspopup="dialog"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           onClick={() => setMobileOpen((open) => !open)}
         >
           {mobileOpen ? (
-            <X className="size-5 stroke-[1.5]" />
+            <X className="size-5 stroke-[1.5]" aria-hidden />
           ) : (
-            <Menu className="size-5 stroke-[1.5]" />
+            <Menu className="size-5 stroke-[1.5]" aria-hidden />
           )}
         </button>
       </div>
 
       <div
         id="mobile-nav"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile navigation"
         className={cn(
-          "fixed inset-0 top-[4.5rem] z-40 lg:hidden",
+          "fixed inset-0 top-[calc(var(--header-height)+env(safe-area-inset-top,0px))] z-40 lg:hidden",
           mobileOpen ? "pointer-events-auto" : "pointer-events-none",
         )}
         aria-hidden={!mobileOpen}
+        {...(!mobileOpen ? { inert: true as const } : {})}
       >
         <button
           type="button"
@@ -106,17 +137,18 @@ export function Header({ pathname }: HeaderProps) {
           )}
           aria-label="Close menu"
           tabIndex={mobileOpen ? 0 : -1}
-          onClick={() => setMobileOpen(false)}
+          onClick={closeMobileMenu}
         />
 
         <nav
+          ref={mobileNavRef}
           className={cn(
-            "glass-card-strong absolute right-0 left-0 mx-4 mt-2 flex flex-col gap-1 p-4 transition-all duration-300 ease-out",
+            "glass-card-strong absolute right-0 left-0 mx-3 mt-2 flex max-h-[calc(100dvh-var(--header-height)-env(safe-area-inset-top,0px)-1rem)] flex-col gap-1 overflow-y-auto overscroll-contain p-3 transition-all duration-300 ease-out sm:mx-4 sm:p-4",
             mobileOpen
               ? "translate-y-0 opacity-100"
               : "-translate-y-4 opacity-0",
           )}
-          aria-label="Mobile navigation"
+          aria-label="Mobile navigation links"
         >
           {routes.map(({ href, label }) => {
             const isActive =
@@ -127,22 +159,24 @@ export function Header({ pathname }: HeaderProps) {
                 key={href}
                 href={href}
                 className={cn(
-                  "focus-ring rounded-lg px-4 py-3 text-sm font-medium tracking-wide transition-colors",
+                  "focus-ring touch-target flex min-h-11 items-center rounded-lg px-4 py-3 text-sm font-medium tracking-wide transition-colors",
                   isActive
                     ? "bg-primary/15 text-foreground"
                     : "text-muted hover:bg-surface hover:text-foreground",
                 )}
-                onClick={() => setMobileOpen(false)}
+                tabIndex={mobileOpen ? 0 : -1}
+                onClick={closeMobileMenu}
               >
                 {label}
               </Link>
             );
           })}
-          <div className="mt-3 border-t border-border pt-4">
+          <div className="mt-2 border-t border-border pt-3 sm:mt-3 sm:pt-4">
             <ButtonLink
               href={strategyCallHref}
-              className="w-full justify-center"
-              onClick={() => setMobileOpen(false)}
+              className="min-h-11 w-full justify-center"
+              tabIndex={mobileOpen ? 0 : -1}
+              onClick={closeMobileMenu}
             >
               Book Strategy Call
             </ButtonLink>

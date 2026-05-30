@@ -234,6 +234,42 @@
   text-transform: uppercase;
 }
 
+@utility text-display-hero {
+  font-size: var(--text-display-hero);
+  line-height: var(--leading-tight);
+}
+
+@utility text-display-section {
+  font-size: var(--text-display-section);
+  line-height: var(--leading-snug);
+}
+
+@utility text-display-card {
+  font-size: var(--text-display-card);
+  line-height: var(--leading-snug);
+}
+
+@utility text-display-quote {
+  font-size: var(--text-display-quote);
+  line-height: var(--leading-snug);
+}
+
+@utility text-body-fluid {
+  font-size: var(--text-body-fluid);
+  line-height: var(--leading-relaxed);
+}
+
+@utility touch-target {
+  min-height: 2.75rem;
+  min-width: 2.75rem;
+  touch-action: manipulation;
+}
+
+@utility content-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
+}
+
 /* ─── Focus ring (a11y) ─── */
 @utility focus-ring {
   &:focus-visible {

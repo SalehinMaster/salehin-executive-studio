@@ -47,9 +47,9 @@ export function SectionHeading({
       ) : null}
       <h2
         className={cn(
-          "font-display text-4xl font-medium leading-[1.15] tracking-tight sm:text-5xl",
+          "text-display-section font-display font-medium tracking-tight text-balance",
           invert ? "text-on-inverse" : "text-foreground",
-          eyebrow && "mt-5",
+          eyebrow && "mt-4 sm:mt-5",
         )}
       >
         {title}
@@ -57,8 +57,8 @@ export function SectionHeading({
       {description ? (
         <p
           className={cn(
-            "mt-5 text-base leading-relaxed md:text-lg",
-            "text-muted",
+            "mt-4 text-body-fluid sm:mt-5",
+            "text-muted text-pretty",
           )}
         >
           {description}

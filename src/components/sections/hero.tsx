@@ -8,7 +8,7 @@ import {
   Users,
   Zap,
 } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ButtonLink } from "@/components/ui/button-link";
 import { FadeIn } from "@/components/ui/fade-in";
 import { GlassCard } from "@/components/ui/glass-card";
@@ -50,10 +50,12 @@ const floatingCards = [
 ] as const;
 
 export function Hero() {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <Section
       id="hero"
-      className="relative overflow-hidden pt-24 pb-16 md:pt-32 md:pb-24"
+      className="relative overflow-hidden pt-16 pb-12 sm:pt-20 md:pt-32 md:pb-24"
     >
       <div className="hero-mesh" aria-hidden>
         <div
@@ -74,32 +76,32 @@ export function Hero() {
       <div className="relative">
         <div className="relative mx-auto max-w-4xl text-center">
           <FadeIn>
-            <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-4 py-1.5 backdrop-blur-sm">
-              <Sparkles className="size-3.5 text-secondary" aria-hidden />
-              <span className="text-eyebrow text-muted">
+            <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-border bg-surface/60 px-3 py-1.5 backdrop-blur-sm sm:px-4">
+              <Sparkles className="size-3.5 shrink-0 text-secondary" aria-hidden />
+              <span className="text-eyebrow truncate text-muted">
                 AI-Powered Personal Branding OS
               </span>
             </div>
 
-            <h1 className="mt-8 font-display text-4xl font-medium leading-[1.08] tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
+            <h1 className="mt-6 text-display-hero font-display font-medium tracking-tight text-balance text-foreground sm:mt-8">
               Build LinkedIn Authority{" "}
               <span className="text-gradient-brand">Faster With AI</span>
             </h1>
 
-            <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted md:text-lg">
+            <p className="mx-auto mt-5 max-w-2xl text-body-fluid text-pretty text-muted sm:mt-6">
               Help founders, CEOs and creators build authority using AI-powered
               content systems.
             </p>
 
-            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-5">
-              <ButtonLink href={strategyCallHref} className="min-w-[200px]">
+            <div className="mt-8 flex w-full flex-col items-stretch justify-center gap-3 sm:mt-10 sm:flex-row sm:items-center sm:gap-5">
+              <ButtonLink href={strategyCallHref} className="w-full sm:w-auto sm:min-w-[200px]">
                 Book Strategy Call
                 <ArrowRight className="size-4 stroke-[1.5]" />
               </ButtonLink>
               <ButtonLink
                 href="#ai-demo"
                 variant="secondary"
-                className="group min-w-[200px]"
+                className="group w-full sm:w-auto sm:min-w-[200px]"
               >
                 <Bot className="size-4 stroke-[1.5] transition-transform group-hover:scale-110" />
                 Try AI Demo
@@ -108,7 +110,7 @@ export function Hero() {
           </FadeIn>
 
           <FadeIn delay={0.2}>
-            <ul className="mt-14 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 border-t border-border/60 pt-10">
+            <ul className="mt-10 flex flex-col items-center justify-center gap-4 border-t border-border/60 pt-8 sm:mt-14 sm:flex-row sm:flex-wrap sm:gap-x-8 sm:gap-y-4 sm:pt-10">
               {trustStats.map(({ icon: Icon, label }) => (
                 <li
                   key={label}
@@ -145,12 +147,12 @@ export function Hero() {
           {floatingCards.map((card) => (
             <motion.div
               key={card.title}
-              className={cn("absolute w-52", card.className)}
-              initial={{ opacity: 0, y: 24 }}
+              className={cn("absolute w-44 lg:w-52", card.className)}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
-                duration: 0.8,
-                delay: 0.5 + card.delay,
+                duration: prefersReducedMotion ? 0 : 0.8,
+                delay: prefersReducedMotion ? 0 : 0.5 + card.delay,
                 ease: [0.22, 1, 0.36, 1],
               }}
             >

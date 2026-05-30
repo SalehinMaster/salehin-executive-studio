@@ -34,7 +34,7 @@ const spanClasses: Record<
 
 export function FeaturesGrid() {
   return (
-    <Section id="tools" className="relative border-t border-border">
+    <Section id="tools" lazy className="relative border-t border-border">
       <FadeIn>
         <SectionHeading
           eyebrow="Mini-tools"
@@ -45,7 +45,7 @@ export function FeaturesGrid() {
         />
       </FadeIn>
 
-      <div className="mt-16 grid auto-rows-fr grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+      <div className="mt-12 grid auto-rows-fr grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 md:mt-16 lg:grid-cols-4 lg:gap-5">
         {featureTools.map((tool, index) => {
           const Icon = toolIcons[tool.id];
           const isLarge = tool.span === "large";
@@ -93,8 +93,8 @@ export function FeaturesGrid() {
 
                 <h3
                   className={cn(
-                    "relative mt-5 font-display font-medium text-foreground",
-                    isLarge ? "text-2xl md:text-3xl" : "text-lg md:text-xl",
+                    "relative mt-4 text-display-card font-display font-medium text-foreground md:mt-5",
+                    isLarge && "md:text-[clamp(1.5rem,3vw,1.875rem)]",
                   )}
                 >
                   {tool.title}

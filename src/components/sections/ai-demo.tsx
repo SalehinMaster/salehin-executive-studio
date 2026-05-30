@@ -81,7 +81,7 @@ export function AiDemo() {
   };
 
   return (
-    <Section id="ai-demo" className="relative border-t border-border">
+    <Section id="ai-demo" lazy className="relative border-t border-border">
       <div
         className="pointer-events-none absolute left-1/2 top-1/3 size-[min(100vw,36rem)] -translate-x-1/2 rounded-full bg-primary/10 blur-[100px]"
         aria-hidden
@@ -97,16 +97,16 @@ export function AiDemo() {
         />
       </FadeIn>
 
-      <FadeIn delay={0.1} className="relative mt-16">
+      <FadeIn delay={0.1} className="relative mt-12 md:mt-16">
         <GlassCard variant="strong" glow="soft" className="overflow-hidden p-1">
-          <div className="flex items-center gap-2 border-b border-border bg-surface/60 px-4 py-3">
-            <span className="size-2.5 rounded-full bg-red-500/70" aria-hidden />
-            <span className="size-2.5 rounded-full bg-amber-400/70" aria-hidden />
-            <span className="size-2.5 rounded-full bg-emerald-400/70" aria-hidden />
-            <span className="ml-3 text-[10px] font-medium uppercase tracking-[0.2em] text-subtle">
+          <div className="flex flex-wrap items-center gap-2 border-b border-border bg-surface/60 px-3 py-2.5 sm:px-4 sm:py-3">
+            <span className="size-2.5 shrink-0 rounded-full bg-red-500/70" aria-hidden />
+            <span className="size-2.5 shrink-0 rounded-full bg-amber-400/70" aria-hidden />
+            <span className="size-2.5 shrink-0 rounded-full bg-emerald-400/70" aria-hidden />
+            <span className="min-w-0 truncate text-[10px] font-medium uppercase tracking-[0.18em] text-subtle sm:tracking-[0.2em]">
               Salehin AI Studio · LinkedIn Generator
             </span>
-            <span className="ml-auto flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wider text-primary">
+            <span className="ml-auto flex shrink-0 items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-primary">
               <span className="relative flex size-1.5">
                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-primary opacity-60" />
                 <span className="relative inline-flex size-1.5 rounded-full bg-primary" />
@@ -116,7 +116,7 @@ export function AiDemo() {
           </div>
 
           <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
-            <div className="border-b border-border p-6 md:p-8 lg:border-r lg:border-b-0">
+            <div className="border-b border-border p-5 sm:p-6 md:p-8 lg:border-r lg:border-b-0">
               <label
                 htmlFor="demo-topic"
                 className="text-eyebrow text-muted"
@@ -140,7 +140,7 @@ export function AiDemo() {
                   onClick={handleGenerate}
                   disabled={isGenerating}
                   className={cn(
-                    "focus-ring inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-lg px-6 text-label transition-all",
+                    "focus-ring touch-target inline-flex h-12 w-full shrink-0 items-center justify-center gap-2 rounded-lg px-6 text-label transition-all sm:w-auto",
                     "bg-primary text-foreground shadow-glow-primary",
                     "hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-70",
                   )}
@@ -166,7 +166,7 @@ export function AiDemo() {
                     key={suggestion}
                     type="button"
                     onClick={() => applySuggestion(suggestion)}
-                    className="focus-ring rounded-full border border-border px-3 py-1.5 text-xs text-muted transition-colors hover:border-primary/40 hover:bg-primary/10 hover:text-foreground"
+                    className="focus-ring touch-target rounded-full border border-border px-3 py-2 text-xs text-muted transition-colors hover:border-primary/40 hover:bg-primary/10 hover:text-foreground"
                   >
                     {suggestion}
                   </button>
@@ -193,7 +193,7 @@ export function AiDemo() {
               </ul>
             </div>
 
-            <div className="bg-surface/30 p-6 md:p-8">
+            <div className="bg-surface/30 p-5 sm:p-6 md:p-8">
               <div className="mb-5 flex items-center gap-3">
                 <div className="flex size-10 items-center justify-center rounded-full border border-border bg-gradient-brand-subtle font-display text-sm font-medium text-foreground">
                   SE

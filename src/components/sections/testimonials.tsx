@@ -5,7 +5,7 @@ import { testimonials } from "@/lib/home-content";
 
 export function Testimonials() {
   return (
-    <Section id="testimonials">
+    <Section id="testimonials" lazy>
       <FadeIn>
         <SectionHeading
           eyebrow="Testimonials"
@@ -14,11 +14,11 @@ export function Testimonials() {
           className="mx-auto max-w-3xl"
         />
       </FadeIn>
-      <div className="mt-20 grid gap-16 md:grid-cols-3">
+      <div className="mt-12 grid gap-10 md:mt-20 md:grid-cols-3 md:gap-16">
         {testimonials.map((item, index) => (
           <FadeIn key={item.name} delay={index * 0.08}>
             <blockquote>
-              <p className="font-display text-2xl font-medium leading-snug text-foreground">
+              <p className="text-display-quote font-display font-medium text-pretty text-foreground">
                 &ldquo;{item.quote}&rdquo;
               </p>
               <footer className="mt-8">

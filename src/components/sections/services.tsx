@@ -26,7 +26,7 @@ const serviceIcons: Record<(typeof services)[number]["title"], LucideIcon> = {
 
 export function Services() {
   return (
-    <Section id="services" className="relative border-t border-border">
+    <Section id="services" lazy className="relative border-t border-border">
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent"
         aria-hidden
@@ -42,7 +42,7 @@ export function Services() {
         />
       </FadeIn>
 
-      <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-6 lg:gap-6">
+      <div className="mt-12 grid gap-4 sm:grid-cols-2 sm:gap-5 md:mt-16 lg:grid-cols-6 lg:gap-6">
         {services.map((item, index) => {
           const Icon = serviceIcons[item.title];
           const isFeatured = index === 0;
@@ -82,8 +82,8 @@ export function Services() {
 
                 <h3
                   className={cn(
-                    "mt-6 font-display font-medium text-foreground",
-                    isFeatured ? "text-2xl md:text-3xl" : "text-xl md:text-2xl",
+                    "mt-5 text-display-card font-display font-medium text-foreground md:mt-6",
+                    isFeatured && "md:text-[clamp(1.5rem,3vw,1.875rem)]",
                   )}
                 >
                   {item.title}
@@ -93,7 +93,7 @@ export function Services() {
                   {item.outcomeHeadline}
                 </p>
 
-                <ul className="mt-6 grid gap-3 border-t border-border/80 pt-6 sm:grid-cols-3">
+                <ul className="mt-5 grid gap-4 border-t border-border/80 pt-5 sm:grid-cols-3 md:mt-6 md:pt-6">
                   {item.outcomes.map((outcome) => (
                     <li key={outcome.label} className="text-center sm:text-left">
                       <p className="font-display text-2xl font-medium tracking-tight text-gradient-brand">

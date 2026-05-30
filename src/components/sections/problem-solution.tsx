@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 export function ProblemSolution() {
   return (
-    <Section id="problem-solution" className="border-t border-border">
+    <Section id="problem-solution" lazy className="border-t border-border">
       <FadeIn>
         <SectionHeading
           eyebrow="Problem → Solution"
@@ -17,7 +17,7 @@ export function ProblemSolution() {
         />
       </FadeIn>
 
-      <div className="mt-16 grid gap-6 md:gap-8">
+      <div className="mt-12 grid gap-5 md:mt-16 md:gap-8">
         {problemSolutionPairs.map((pair, index) => (
           <FadeIn key={pair.problem.title} delay={index * 0.08}>
             <div className="grid gap-4 lg:grid-cols-2 lg:gap-6">
@@ -41,7 +41,7 @@ export function ProblemSolution() {
                   </span>
                   <div>
                     <p className="text-eyebrow text-red-400/80">Problem</p>
-                    <h3 className="mt-2 font-display text-xl font-medium text-foreground md:text-2xl">
+                    <h3 className="mt-2 text-display-card font-display font-medium text-foreground">
                       {pair.problem.title}
                     </h3>
                     <p className="mt-3 text-sm leading-relaxed text-muted">
@@ -67,7 +67,7 @@ export function ProblemSolution() {
                   </span>
                   <div className="flex-1">
                     <p className="text-eyebrow text-secondary">Solution</p>
-                    <h3 className="mt-2 font-display text-xl font-medium text-foreground md:text-2xl">
+                    <h3 className="mt-2 text-display-card font-display font-medium text-foreground">
                       {pair.solution.title}
                     </h3>
                     <p className="mt-3 text-sm leading-relaxed text-muted">

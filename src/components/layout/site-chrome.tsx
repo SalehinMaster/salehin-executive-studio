@@ -12,7 +12,7 @@ export function SiteChrome({ children }: SiteChromeProps) {
 
   return (
     <>
-      <Header pathname={pathname} />
+      <Header key={pathname} pathname={pathname} />
       {children}
     </>
   );
