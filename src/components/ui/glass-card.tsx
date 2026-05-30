@@ -7,6 +7,7 @@ type GlassCardProps = {
   glow?: "none" | "primary" | "secondary" | "soft";
   hover?: boolean;
   as?: "div" | "article";
+  style?: React.CSSProperties;
 };
 
 export function GlassCard({
@@ -16,9 +17,11 @@ export function GlassCard({
   glow = "none",
   hover = false,
   as: Component = "div",
+  style,
 }: GlassCardProps) {
   return (
     <Component
+      style={style}
       className={cn(
         variant === "strong" ? "glass-card-strong" : "glass-card",
         glow === "primary" && "glow-primary",

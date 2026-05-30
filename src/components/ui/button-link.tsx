@@ -6,6 +6,7 @@ type ButtonLinkProps = {
   children: React.ReactNode;
   variant?: "primary" | "secondary" | "ghost";
   className?: string;
+  onClick?: () => void;
 };
 
 export function ButtonLink({
@@ -13,10 +14,12 @@ export function ButtonLink({
   children,
   variant = "primary",
   className,
+  onClick,
 }: ButtonLinkProps) {
   return (
     <Link
       href={href}
+      onClick={onClick}
       className={cn(
         "focus-ring inline-flex h-11 items-center justify-center gap-2 rounded-lg px-6 text-label transition-all",
         variant === "primary" &&
