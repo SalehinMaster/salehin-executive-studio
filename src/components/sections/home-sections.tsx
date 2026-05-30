@@ -1,5 +1,7 @@
+import { AiDemo } from "@/components/sections/ai-demo";
 import { CTA } from "@/components/sections/cta";
 import { FAQ } from "@/components/sections/faq";
+import { FeaturesGrid } from "@/components/sections/features-grid";
 import { Hero } from "@/components/sections/hero";
 import { Portfolio } from "@/components/sections/portfolio";
 import { ProblemSolution } from "@/components/sections/problem-solution";
@@ -12,6 +14,8 @@ export function HomeSections() {
       <Hero />
       <ProblemSolution />
       <Services />
+      <AiDemo />
+      <FeaturesGrid />
       <Portfolio />
       <Testimonials />
       <FAQ />

@@ -51,28 +51,88 @@ export const problemSolutionPairs = [
 export const services = [
   {
     title: "LinkedIn Ghostwriting",
-    description:
-      "Executive-grade posts and narratives published in your voice — engineered for reach, credibility, and inbound opportunity.",
+    outcomeHeadline: "Turn feed presence into qualified pipeline",
+    outcomes: [
+      { metric: "4×", label: "inbound DMs & calls" },
+      { metric: "12K+", label: "avg. monthly impressions" },
+      { metric: "92%", label: "voice-match approval" },
+    ],
   },
   {
     title: "Personal Branding Strategy",
-    description:
-      "Positioning, audience architecture, and proof systems that make you the obvious choice in your category.",
+    outcomeHeadline: "Own your category before buyers compare options",
+    outcomes: [
+      { metric: "3×", label: "profile visit → lead rate" },
+      { metric: "#1", label: "positioning clarity score" },
+      { metric: "48h", label: "to revised authority narrative" },
+    ],
   },
   {
     title: "AI Content Systems",
-    description:
-      "End-to-end workflows for research, ideation, drafting, and refinement — consistent quality without sacrificing your time.",
+    outcomeHeadline: "Ship authority-grade content without calendar drag",
+    outcomes: [
+      { metric: "85%", label: "less exec drafting time" },
+      { metric: "24", label: "on-brand posts / month" },
+      { metric: "340%", label: "reach lift in 90 days" },
+    ],
   },
   {
     title: "Carousel Design",
-    description:
-      "Premium visual storytelling for LinkedIn and social — restrained, readable, and built to stop the scroll with authority.",
+    outcomeHeadline: "Stop the scroll. Hold attention. Drive action.",
+    outcomes: [
+      { metric: "2.8×", label: "higher save & share rate" },
+      { metric: "67%", label: "more profile clicks" },
+      { metric: "5.2%", label: "avg. engagement rate" },
+    ],
   },
   {
-    title: "Social Media Authority Building",
+    title: "Social Media Management",
+    outcomeHeadline: "Compound visibility into trust — and trust into revenue",
+    outcomes: [
+      { metric: "2×", label: "inbound opportunity volume" },
+      { metric: "180%", label: "follower quality index" },
+      { metric: "Always-on", label: "authority cadence" },
+    ],
+  },
+] as const;
+
+export const featureTools = [
+  {
+    id: "linkedin-generator",
+    title: "LinkedIn Generator",
     description:
-      "Cadence, formats, and distribution designed to compound visibility — turning attention into trust and trust into revenue.",
+      "Full posts engineered for reach, saves, and inbound — from a single strategic prompt.",
+    span: "large" as const,
+  },
+  {
+    id: "hook-generator",
+    title: "Hook Generator",
+    description: "Scroll-stopping openers calibrated to your audience and offer.",
+    span: "default" as const,
+  },
+  {
+    id: "bio-optimizer",
+    title: "Bio Optimizer",
+    description: "Profile copy that converts visitors into followers and leads.",
+    span: "default" as const,
+  },
+  {
+    id: "carousel-generator",
+    title: "Carousel Generator",
+    description: "Slide-by-slide narratives with premium visual hierarchy.",
+    span: "wide" as const,
+  },
+  {
+    id: "content-rewriter",
+    title: "Content Rewriter",
+    description: "Refine tone, tighten proof, and elevate clarity in one pass.",
+    span: "default" as const,
+  },
+  {
+    id: "cta-generator",
+    title: "CTA Generator",
+    description: "High-converting closes that drive comments, DMs, and bookings.",
+    span: "default" as const,
   },
 ] as const;
 

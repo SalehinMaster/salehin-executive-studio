@@ -97,7 +97,7 @@ export function Hero() {
                 <ArrowRight className="size-4 stroke-[1.5]" />
               </ButtonLink>
               <ButtonLink
-                href="/contact?intent=demo"
+                href="#ai-demo"
                 variant="secondary"
                 className="group min-w-[200px]"
               >
