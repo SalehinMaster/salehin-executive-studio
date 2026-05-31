@@ -20,6 +20,12 @@ const AiDemo = dynamic(
   { loading: () => <SectionPlaceholder tall /> },
 );
 
+const LeadMagnet = dynamic(
+  () =>
+    import("@/components/sections/lead-magnet").then((mod) => mod.LeadMagnet),
+  { loading: () => <SectionPlaceholder /> },
+);
+
 const FeaturesGrid = dynamic(
   () =>
     import("@/components/sections/features-grid").then(
@@ -89,6 +95,7 @@ export function HomeSections() {
       <ProblemSolution />
       <Services />
       <AiDemo />
+      <LeadMagnet />
       <FeaturesGrid />
       <Portfolio />
       <SocialProof />

@@ -403,6 +403,33 @@ export const faqs = [
   },
 ] as const;
 
+export const leadMagnetResources = [
+  {
+    id: "linkedin-hooks-pdf",
+    title: "100 LinkedIn Hooks PDF",
+    subtitle: "Scroll-stopping openers for every post format",
+    format: "PDF · 24 pages",
+    accent: "from-primary/80 via-primary/50 to-secondary/40",
+    highlights: ["Hook formulas", "Industry variants", "CTA pairings"],
+  },
+  {
+    id: "linkedin-profile-checklist",
+    title: "LinkedIn Profile Checklist",
+    subtitle: "Audit every section buyers actually read",
+    format: "Checklist · 12 sections",
+    accent: "from-secondary/70 via-cyan-500/40 to-primary/30",
+    highlights: ["Headline scorecard", "Proof blocks", "SEO keywords"],
+  },
+  {
+    id: "personal-branding-guide",
+    title: "Personal Branding Guide",
+    subtitle: "Position, narrative, and content pillars in one playbook",
+    format: "Guide · 36 pages",
+    accent: "from-violet-600/70 via-primary/50 to-fuchsia-500/30",
+    highlights: ["Positioning map", "Voice framework", "90-day plan"],
+  },
+] as const;
+
 export const footerBrandStatement =
   "We install personal branding operating systems for founders and executives who need market trust at scale — strategy, AI content infrastructure, and LinkedIn authority that compounds.";
 
@@ -428,6 +455,7 @@ export const footerNavColumns = [
   {
     title: "Resources",
     links: [
+      { label: "Free Resources", href: "/#lead-magnet" },
       { label: "LinkedIn Tools", href: "/#tools" },
       { label: "Testimonials", href: "/#testimonials" },
       { label: "FAQ", href: "/#faq" },

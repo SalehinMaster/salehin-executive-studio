@@ -1,16 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { useState } from "react";
+import { EmailCaptureForm } from "@/components/forms/email-capture-form";
 import { FadeIn } from "@/components/ui/fade-in";
-import { Button } from "@/components/ui/button";
 import {
   footerBrandStatement,
   footerNavColumns,
   footerSocialLinks,
 } from "@/lib/home-content";
-import { cn } from "@/lib/utils";
+import { formspreeNewsletterId } from "@/lib/formspree-config";
 
 function LinkedInIcon({ className }: { className?: string }) {
   return (
@@ -48,15 +46,6 @@ const socialIcons = {
 } as const;
 
 export function Footer() {
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
-
-  const handleNewsletter = (event: React.FormEvent) => {
-    event.preventDefault();
-    if (!email.trim()) return;
-    setSubscribed(true);
-  };
-
   return (
     <footer className="relative mt-auto border-t border-border bg-surface/20">
       <div
@@ -89,37 +78,16 @@ export function Footer() {
                 systems — no fluff.
               </p>
 
-              {subscribed ? (
-                <p className="mt-5 rounded-lg border border-secondary/25 bg-secondary/5 px-4 py-3 text-sm text-muted">
-                  You&apos;re in. Check your inbox for the first briefing.
-                </p>
-              ) : (
-                <form
-                  onSubmit={handleNewsletter}
-                  className="mt-5 flex flex-col gap-3 sm:flex-row"
-                >
-                  <label className="sr-only" htmlFor="footer-email">
-                    Email address
-                  </label>
-                  <input
-                    id="footer-email"
-                    type="email"
-                    required
-                    autoComplete="email"
-                    placeholder="you@company.com"
-                    value={email}
-                    onChange={(event) => setEmail(event.target.value)}
-                    className={cn(
-                      "focus-ring min-h-11 flex-1 rounded-lg border border-border-strong bg-surface/60 px-4 text-sm text-foreground placeholder:text-muted/70",
-                      "transition-colors hover:border-primary/30 focus:border-primary/50",
-                    )}
-                  />
-                  <Button type="submit" className="shrink-0 gap-2 sm:px-5">
-                    Subscribe
-                    <ArrowRight className="size-4 stroke-[1.5]" />
-                  </Button>
-                </form>
-              )}
+              <EmailCaptureForm
+                formId={formspreeNewsletterId}
+                formType="newsletter"
+                inputId="footer-email"
+                submitLabel="Subscribe"
+                successTitle="You're subscribed"
+                successMessage="Check your inbox for the first authority briefing — LinkedIn tactics, AI workflows, and branding systems."
+                layout="inline"
+                className="mt-5"
+              />
             </div>
           </div>
         </FadeIn>
