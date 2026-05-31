@@ -8,19 +8,25 @@ import {
   Wand2,
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
+import { useAuth } from "@/components/auth/auth-provider";
+import { AiGeneratingState } from "@/components/ui/ai-generating-state";
 import { FadeIn } from "@/components/ui/fade-in";
 import { GlassCard } from "@/components/ui/glass-card";
 import { Section } from "@/components/ui/section";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { useToast } from "@/components/ui/toast-provider";
 import {
   demoSuggestions,
-  generateLinkedInPost,
-  type LinkedInPostPreview,
+  initialLinkedInPreview,
 } from "@/lib/linkedin-demo-generator";
+import { savePostToHistory } from "@/lib/save-post-history";
 import { cn } from "@/lib/utils";
-
-const initialPreview = generateLinkedInPost("AI content systems for founders");
+import type {
+  GeneratePostError,
+  GeneratePostResponse,
+  LinkedInPostPreview,
+} from "@/types/linkedin-post";
 
 function PostPreview({ post }: { post: LinkedInPostPreview }) {
   return (
@@ -61,20 +67,90 @@ function PostPreview({ post }: { post: LinkedInPostPreview }) {
 }
 
 export function AiDemo() {
+  const { user, openAuth } = useAuth();
+  const { toast } = useToast();
+
   const [topic, setTopic] = useState("");
-  const [preview, setPreview] = useState<LinkedInPostPreview>(initialPreview);
+  const [preview, setPreview] = useState<LinkedInPostPreview>(initialLinkedInPreview);
   const [isGenerating, setIsGenerating] = useState(false);
   const [hasGenerated, setHasGenerated] = useState(false);
 
-  const handleGenerate = useCallback(() => {
+  const trimmedTopic = useMemo(() => topic.trim(), [topic]);
+
+  const handleGenerate = useCallback(async () => {
+    if (!trimmedTopic) {
+      toast({
+        variant: "error",
+        title: "Add a topic first",
+        description: "Enter what you want the post to be about, then generate.",
+      });
+      return;
+    }
+
     setIsGenerating(true);
     setHasGenerated(true);
 
-    window.setTimeout(() => {
-      setPreview(generateLinkedInPost(topic));
+    try {
+      const response = await fetch("/api/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ topic: trimmedTopic }),
+      });
+
+      const payload = (await response.json()) as
+        | GeneratePostResponse
+        | GeneratePostError;
+
+      if (!response.ok) {
+        const message =
+          "error" in payload
+            ? payload.error
+            : "Something went wrong while generating your post.";
+
+        toast({
+          variant: "error",
+          title: "Generation failed",
+          description: message,
+        });
+        return;
+      }
+
+      const { post } = payload as GeneratePostResponse;
+      setPreview(post);
+
+      if (user) {
+        const saved = await savePostToHistory(user.id, trimmedTopic, post);
+
+        if (saved.ok) {
+          toast({
+            variant: "success",
+            title: "Post generated & saved",
+            description: "Your LinkedIn draft is in your dashboard history.",
+          });
+        } else {
+          toast({
+            variant: "error",
+            title: "Generated, but not saved",
+            description: saved.message,
+          });
+        }
+      } else {
+        toast({
+          variant: "success",
+          title: "Post generated",
+          description: "Sign in to automatically save generations to your dashboard.",
+        });
+      }
+    } catch {
+      toast({
+        variant: "error",
+        title: "Network error",
+        description: "Check your connection and try again.",
+      });
+    } finally {
       setIsGenerating(false);
-    }, 1100);
-  }, [topic]);
+    }
+  }, [trimmedTopic, toast, user]);
 
   const applySuggestion = (suggestion: string) => {
     setTopic(suggestion);
@@ -117,10 +193,7 @@ export function AiDemo() {
 
           <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
             <div className="border-b border-border p-5 sm:p-6 md:p-8 lg:border-r lg:border-b-0">
-              <label
-                htmlFor="demo-topic"
-                className="text-eyebrow text-muted"
-              >
+              <label htmlFor="demo-topic" className="text-eyebrow text-muted">
                 Your topic
               </label>
               <div className="mt-3 flex flex-col gap-3 sm:flex-row">
@@ -130,14 +203,16 @@ export function AiDemo() {
                   value={topic}
                   onChange={(e) => setTopic(e.target.value)}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter" && !isGenerating) handleGenerate();
+                    if (e.key === "Enter" && !isGenerating) {
+                      void handleGenerate();
+                    }
                   }}
                   placeholder="e.g. AI content systems for founders"
                   className="focus-ring h-12 flex-1 rounded-lg border border-border-strong bg-background/80 px-4 text-sm text-foreground placeholder:text-subtle transition-colors focus:border-primary/50"
                 />
                 <button
                   type="button"
-                  onClick={handleGenerate}
+                  onClick={() => void handleGenerate()}
                   disabled={isGenerating}
                   className={cn(
                     "focus-ring touch-target inline-flex h-12 w-full shrink-0 items-center justify-center gap-2 rounded-lg px-6 text-label transition-all sm:w-auto",
@@ -158,6 +233,23 @@ export function AiDemo() {
                   )}
                 </button>
               </div>
+
+              {!user ? (
+                <p className="mt-3 text-xs text-subtle">
+                  <button
+                    type="button"
+                    onClick={() => openAuth({ redirectTo: "/#ai-demo" })}
+                    className="focus-ring text-secondary underline-offset-2 hover:text-secondary-hover hover:underline"
+                  >
+                    Sign in
+                  </button>{" "}
+                  to auto-save every generation to your dashboard.
+                </p>
+              ) : (
+                <p className="mt-3 text-xs text-subtle">
+                  Signed in — generations save to your post history automatically.
+                </p>
+              )}
 
               <p className="mt-4 text-xs text-subtle">Try a suggestion:</p>
               <div className="mt-2 flex flex-wrap gap-2">
@@ -218,19 +310,16 @@ export function AiDemo() {
                       : "initial"
                   }
                   initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: isGenerating ? 0.4 : 1, y: 0 }}
+                  animate={{ opacity: isGenerating ? 0.85 : 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                   className={cn(
                     "rounded-xl border border-border bg-background/50 p-5 md:p-6",
-                    isGenerating && "pointer-events-none",
+                    isGenerating && "pointer-events-none glow-border-primary",
                   )}
                 >
                   {isGenerating ? (
-                    <div className="flex min-h-[280px] flex-col items-center justify-center gap-3 text-muted">
-                      <Loader2 className="size-8 animate-spin text-primary" />
-                      <p className="text-sm">Crafting your post…</p>
-                    </div>
+                    <AiGeneratingState />
                   ) : (
                     <PostPreview post={preview} />
                   )}

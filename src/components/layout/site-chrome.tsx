@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Header } from "@/components/layout/header";
 import { AuthModal } from "@/components/auth/auth-modal";
 import { AuthProvider } from "@/components/auth/auth-provider";
+import { ToastProvider } from "@/components/ui/toast-provider";
 
 type SiteChromeProps = {
   children: React.ReactNode;
@@ -26,7 +27,9 @@ export function SiteChrome({ children }: SiteChromeProps) {
   return (
     <Suspense fallback={null}>
       <AuthProvider>
-        <SiteChromeInner>{children}</SiteChromeInner>
+        <ToastProvider>
+          <SiteChromeInner>{children}</SiteChromeInner>
+        </ToastProvider>
       </AuthProvider>
     </Suspense>
   );
