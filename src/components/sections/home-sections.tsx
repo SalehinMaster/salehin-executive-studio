@@ -34,6 +34,22 @@ const Portfolio = dynamic(
   { loading: () => <SectionPlaceholder /> },
 );
 
+const SocialProof = dynamic(
+  () =>
+    import("@/components/sections/social-proof").then(
+      (mod) => mod.SocialProof,
+    ),
+  { loading: () => <SectionPlaceholder /> },
+);
+
+const CaseStudies = dynamic(
+  () =>
+    import("@/components/sections/case-studies").then(
+      (mod) => mod.CaseStudies,
+    ),
+  { loading: () => <SectionPlaceholder /> },
+);
+
 const Testimonials = dynamic(
   () =>
     import("@/components/sections/testimonials").then(
@@ -44,6 +60,11 @@ const Testimonials = dynamic(
 
 const FAQ = dynamic(
   () => import("@/components/sections/faq").then((mod) => mod.FAQ),
+  { loading: () => <SectionPlaceholder /> },
+);
+
+const Pricing = dynamic(
+  () => import("@/components/sections/pricing").then((mod) => mod.Pricing),
   { loading: () => <SectionPlaceholder /> },
 );
 
@@ -70,7 +91,10 @@ export function HomeSections() {
       <AiDemo />
       <FeaturesGrid />
       <Portfolio />
+      <SocialProof />
+      <CaseStudies />
       <Testimonials />
+      <Pricing />
       <FAQ />
       <CTA />
     </>

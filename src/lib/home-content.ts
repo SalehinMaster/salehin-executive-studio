@@ -157,24 +157,176 @@ export const portfolioItems = [
   },
 ] as const;
 
+export const socialProofMetrics = [
+  { value: "10M+", label: "Content impressions delivered", trend: "+127% YoY" },
+  { value: "200+", label: "Founders & executives served", trend: "Across 14 industries" },
+  { value: "4.2×", label: "Avg. engagement lift", trend: "Within 90 days" },
+  { value: "92%", label: "Client retention rate", trend: "12-month rolling" },
+] as const;
+
+export const socialProofClients = [
+  { initials: "EV", name: "Elena V.", company: "Meridian Capital" },
+  { initials: "JO", name: "James O.", company: "Northline Health" },
+  { initials: "PS", name: "Priya S.", company: "Atlas Ventures" },
+  { initials: "MR", name: "Marcus R.", company: "Vertex AI" },
+  { initials: "AL", name: "Amira L.", company: "ScaleForge" },
+  { initials: "DK", name: "David K.", company: "Summit Labs" },
+] as const;
+
+export const authorityBadges = [
+  "LinkedIn Top Voice",
+  "Forbes Council",
+  "TechCrunch Featured",
+  "Y Combinator Alumni",
+] as const;
+
+export const engagementImprovements = [
+  { metric: "Profile views", before: 820, after: 12400, unit: "/mo" },
+  { metric: "Post engagement", before: 1.2, after: 5.8, unit: "% rate" },
+  { metric: "Inbound DMs", before: 3, after: 28, unit: "/mo" },
+] as const;
+
+export const caseStudies = [
+  {
+    client: "Elena Vasquez",
+    role: "CEO, Meridian Capital",
+    industry: "Fintech",
+    before:
+      "2.1K followers, sporadic posting, zero inbound pipeline from LinkedIn despite $40M AUM.",
+    strategy:
+      "Authority narrative repositioning, AI content pipeline, weekly thought-leadership carousels targeting CFO personas.",
+    after:
+      "18.4K followers, consistent 3× weekly publishing, recognized voice in fintech leadership.",
+    results: [
+      { metric: "4×", label: "inbound pipeline" },
+      { metric: "340%", label: "reach increase" },
+      { metric: "12", label: "speaking invites" },
+    ],
+  },
+  {
+    client: "James Okonkwo",
+    role: "Founder, Northline Health",
+    industry: "HealthTech",
+    before:
+      "Strong clinical expertise invisible online. Competitors with less depth dominated the feed.",
+    strategy:
+      "Personal brand architecture, hook-first content system, investor-grade narrative for Series A positioning.",
+    after:
+      "Category authority in digital health innovation with 2.8× profile-to-lead conversion.",
+    results: [
+      { metric: "2.8×", label: "profile → lead rate" },
+      { metric: "890%", label: "impression growth" },
+      { metric: "$4.2M", label: "Series A raised" },
+    ],
+  },
+  {
+    client: "Priya Shah",
+    role: "Managing Partner, Atlas Ventures",
+    industry: "Venture Capital",
+    before:
+      "Deal flow dependent on warm intros. LinkedIn presence read like a static résumé.",
+    strategy:
+      "Thesis-led content engine, LP-facing authority posts, AI-assisted deal memo summaries as content.",
+    after:
+      "Top-of-mind for founders pre-fundraise. Inbound deal flow doubled within two quarters.",
+    results: [
+      { metric: "2×", label: "inbound deal flow" },
+      { metric: "67%", label: "LP engagement lift" },
+      { metric: "#1", label: "VC voice index" },
+    ],
+  },
+] as const;
+
 export const testimonials = [
   {
     quote:
       "They didn't sell us posts. They installed an operating system. My visibility finally matches the company I'm building.",
     name: "Elena Vasquez",
     role: "CEO, Meridian Capital",
+    initials: "EV",
+    hasVideo: true,
+    videoDuration: "2:14",
   },
   {
     quote:
       "AI-powered execution with zero generic output. Every piece sounds like me — because the infrastructure was built first.",
     name: "James Okonkwo",
     role: "Founder, Northline Health",
+    initials: "JO",
+    hasVideo: true,
+    videoDuration: "1:48",
   },
   {
     quote:
       "Inbound doubled. Speaking invites tripled. That's what happens when your personal brand runs like infrastructure.",
     name: "Priya Shah",
     role: "Managing Partner, Atlas Ventures",
+    initials: "PS",
+    hasVideo: false,
+    videoDuration: null,
+  },
+  {
+    quote:
+      "Within 90 days my LinkedIn became our top inbound channel. The ROI on this system is absurd compared to paid ads.",
+    name: "Marcus Reid",
+    role: "Founder & CEO, Vertex AI",
+    initials: "MR",
+    hasVideo: true,
+    videoDuration: "3:02",
+  },
+] as const;
+
+export const pricingTiers = [
+  {
+    id: "starter",
+    name: "Starter",
+    description: "For founders ready to establish authority with a consistent content engine.",
+    price: "$2,500",
+    period: "/month",
+    features: [
+      "8 LinkedIn posts per month",
+      "AI content pipeline setup",
+      "Profile & bio optimization",
+      "Monthly strategy sync",
+      "Basic analytics dashboard",
+    ],
+    cta: "Get Started",
+    highlighted: false,
+  },
+  {
+    id: "professional",
+    name: "Professional",
+    description: "The complete authority system — strategy, content, design, and optimization.",
+    price: "$5,000",
+    period: "/month",
+    features: [
+      "16 posts + 4 carousels per month",
+      "Full personal brand strategy",
+      "AI content OS with voice training",
+      "Engagement & DM management",
+      "Bi-weekly strategy calls",
+      "Priority support & revisions",
+    ],
+    cta: "Start Professional",
+    highlighted: true,
+    badge: "Most Popular",
+  },
+  {
+    id: "executive",
+    name: "Executive",
+    description: "White-glove partnership for C-suite leaders who need maximum market presence.",
+    price: "Custom",
+    period: "",
+    features: [
+      "Unlimited content & formats",
+      "Dedicated brand strategist",
+      "Multi-platform distribution",
+      "PR & media positioning",
+      "Executive ghostwriting",
+      "Quarterly brand audits",
+    ],
+    cta: "Book Executive Call",
+    highlighted: false,
   },
 ] as const;
 
