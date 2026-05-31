@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useAuth } from "@/components/auth/auth-provider";
+import { Button } from "@/components/ui/button";
 import { ButtonLink } from "@/components/ui/button-link";
 import { routes, strategyCallHref } from "@/lib/routes";
 import { cn } from "@/lib/utils";
@@ -12,6 +14,7 @@ type HeaderProps = {
 };
 
 export function Header({ pathname }: HeaderProps) {
+  const { user, loading, openAuth } = useAuth();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
@@ -20,6 +23,18 @@ export function Header({ pathname }: HeaderProps) {
   const closeMobileMenu = useCallback(() => {
     setMobileOpen(false);
   }, []);
+
+  const handleSignIn = useCallback(() => {
+    closeMobileMenu();
+    openAuth({ redirectTo: "/dashboard" });
+  }, [closeMobileMenu, openAuth]);
+
+  const handleStrategyCall = useCallback(() => {
+    if (!user) {
+      closeMobileMenu();
+      openAuth({ redirectTo: strategyCallHref });
+    }
+  }, [user, closeMobileMenu, openAuth]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -93,10 +108,30 @@ export function Header({ pathname }: HeaderProps) {
           })}
         </nav>
 
-        <div className="hidden items-center gap-4 lg:flex">
-          <ButtonLink href={strategyCallHref} className="h-10 px-5 text-[11px]">
-            Book Strategy Call
-          </ButtonLink>
+        <div className="hidden items-center gap-3 lg:flex">
+          {!loading && !user && (
+            <Button variant="ghost" className="h-10 px-4 text-[11px]" onClick={handleSignIn}>
+              Sign In
+            </Button>
+          )}
+          {!loading && user && (
+            <ButtonLink
+              href="/dashboard"
+              variant="ghost"
+              className="h-10 px-4 text-[11px]"
+            >
+              Dashboard
+            </ButtonLink>
+          )}
+          {user ? (
+            <ButtonLink href={strategyCallHref} className="h-10 px-5 text-[11px]">
+              Book Strategy Call
+            </ButtonLink>
+          ) : (
+            <Button className="h-10 px-5 text-[11px]" onClick={handleStrategyCall}>
+              Book Strategy Call
+            </Button>
+          )}
         </div>
 
         <button
@@ -171,15 +206,46 @@ export function Header({ pathname }: HeaderProps) {
               </Link>
             );
           })}
-          <div className="mt-2 border-t border-border pt-3 sm:mt-3 sm:pt-4">
-            <ButtonLink
-              href={strategyCallHref}
-              className="min-h-11 w-full justify-center"
-              tabIndex={mobileOpen ? 0 : -1}
-              onClick={closeMobileMenu}
-            >
-              Book Strategy Call
-            </ButtonLink>
+          <div className="mt-2 space-y-2 border-t border-border pt-3 sm:mt-3 sm:pt-4">
+            {!loading && !user && (
+              <Button
+                variant="ghost"
+                className="min-h-11 w-full justify-center"
+                tabIndex={mobileOpen ? 0 : -1}
+                onClick={handleSignIn}
+              >
+                Sign In
+              </Button>
+            )}
+            {!loading && user && (
+              <ButtonLink
+                href="/dashboard"
+                variant="ghost"
+                className="min-h-11 w-full justify-center"
+                tabIndex={mobileOpen ? 0 : -1}
+                onClick={closeMobileMenu}
+              >
+                Dashboard
+              </ButtonLink>
+            )}
+            {user ? (
+              <ButtonLink
+                href={strategyCallHref}
+                className="min-h-11 w-full justify-center"
+                tabIndex={mobileOpen ? 0 : -1}
+                onClick={closeMobileMenu}
+              >
+                Book Strategy Call
+              </ButtonLink>
+            ) : (
+              <Button
+                className="min-h-11 w-full justify-center"
+                tabIndex={mobileOpen ? 0 : -1}
+                onClick={handleStrategyCall}
+              >
+                Book Strategy Call
+              </Button>
+            )}
           </div>
         </nav>
       </div>
