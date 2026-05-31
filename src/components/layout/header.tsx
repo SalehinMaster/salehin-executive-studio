@@ -6,7 +6,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useAuth } from "@/components/auth/auth-provider";
 import { Button } from "@/components/ui/button";
 import { ButtonLink } from "@/components/ui/button-link";
-import { routes, strategyCallHref } from "@/lib/routes";
+import { StrategyCallButton } from "@/components/ui/strategy-call-button";
+import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
 type HeaderProps = {
@@ -28,13 +29,6 @@ export function Header({ pathname }: HeaderProps) {
     closeMobileMenu();
     openAuth({ redirectTo: "/dashboard" });
   }, [closeMobileMenu, openAuth]);
-
-  const handleStrategyCall = useCallback(() => {
-    if (!user) {
-      closeMobileMenu();
-      openAuth({ redirectTo: strategyCallHref });
-    }
-  }, [user, closeMobileMenu, openAuth]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -123,15 +117,9 @@ export function Header({ pathname }: HeaderProps) {
               Dashboard
             </ButtonLink>
           )}
-          {user ? (
-            <ButtonLink href={strategyCallHref} className="h-10 px-5 text-[11px]">
-              Book Strategy Call
-            </ButtonLink>
-          ) : (
-            <Button className="h-10 px-5 text-[11px]" onClick={handleStrategyCall}>
-              Book Strategy Call
-            </Button>
-          )}
+          <StrategyCallButton className="h-10 px-5 text-[11px]">
+            Book Strategy Call
+          </StrategyCallButton>
         </div>
 
         <button
@@ -228,24 +216,13 @@ export function Header({ pathname }: HeaderProps) {
                 Dashboard
               </ButtonLink>
             )}
-            {user ? (
-              <ButtonLink
-                href={strategyCallHref}
-                className="min-h-11 w-full justify-center"
-                tabIndex={mobileOpen ? 0 : -1}
-                onClick={closeMobileMenu}
-              >
-                Book Strategy Call
-              </ButtonLink>
-            ) : (
-              <Button
-                className="min-h-11 w-full justify-center"
-                tabIndex={mobileOpen ? 0 : -1}
-                onClick={handleStrategyCall}
-              >
-                Book Strategy Call
-              </Button>
-            )}
+            <StrategyCallButton
+              className="min-h-11 w-full justify-center"
+              tabIndex={mobileOpen ? 0 : -1}
+              onClick={closeMobileMenu}
+            >
+              Book Strategy Call
+            </StrategyCallButton>
           </div>
         </nav>
       </div>

@@ -1,11 +1,10 @@
-import { ArrowRight, Check, Sparkles } from "lucide-react";
-import { ButtonLink } from "@/components/ui/button-link";
+import { Check, Sparkles } from "lucide-react";
 import { FadeIn } from "@/components/ui/fade-in";
 import { GlassCard } from "@/components/ui/glass-card";
 import { Section } from "@/components/ui/section";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { pricingTiers } from "@/lib/home-content";
-import { strategyCallHref } from "@/lib/routes";
+import { PricingTierCTA } from "@/components/sections/pricing-tier-cta";
 import { cn } from "@/lib/utils";
 
 export function Pricing() {
@@ -96,14 +95,11 @@ export function Pricing() {
               </ul>
 
               <div className="border-t border-border/80 p-6 sm:p-8">
-                <ButtonLink
-                  href={tier.id === "executive" ? strategyCallHref : "/contact"}
-                  variant={tier.highlighted ? "primary" : "secondary"}
-                  className="w-full"
-                >
-                  {tier.cta}
-                  <ArrowRight className="size-4 stroke-[1.5]" />
-                </ButtonLink>
+                <PricingTierCTA
+                  tierId={tier.id}
+                  cta={tier.cta}
+                  highlighted={tier.highlighted}
+                />
               </div>
             </GlassCard>
           </FadeIn>

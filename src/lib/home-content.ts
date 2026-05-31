@@ -332,23 +332,132 @@ export const pricingTiers = [
 
 export const faqs = [
   {
-    question: "What is a Personal Branding Operating System?",
+    id: "pricing-investment",
+    category: "Pricing",
+    question: "How much does a personal branding engagement cost?",
     answer:
-      "A coordinated stack of strategy, content, design, and AI workflows that makes your expertise visible, repeatable, and compounding — without relying on ad-hoc posting or your calendar alone.",
+      "Plans start at $2,500/month for founders establishing authority, $5,000/month for the full Professional system, and custom Executive partnerships for C-suite leaders. Every tier includes strategy, AI infrastructure, and measurable outcomes — with a 30-day satisfaction guarantee and no long-term lock-in.",
   },
   {
-    question: "Who is this built for?",
+    id: "pricing-included",
+    category: "Pricing",
+    question: "What's included vs. what costs extra?",
     answer:
-      "Founders, CEOs, creators, coaches, consultants, and business owners who need market trust at scale — leaders whose revenue and reputation depend on being unmistakably authoritative.",
+      "All plans include voice-calibrated AI pipelines, profile optimization, strategy syncs, and analytics. Add-ons like PR positioning, multi-platform distribution, or dedicated ghostwriting are scoped during your strategy call — never hidden in fine print.",
   },
   {
-    question: "How does AI fit into the work?",
+    id: "delivery-timeline",
+    category: "Delivery",
+    question: "How quickly can we go live?",
     answer:
-      "AI accelerates research, drafting, and iteration inside guardrails you define. Strategy and voice stay human-led; execution becomes systematic, fast, and consistent.",
+      "Most Personal Branding OS builds launch in 8–12 weeks: two weeks for diagnosis and positioning, four to six for content architecture and AI training, then two to four for publishing cadence and optimization. Retainer clients often see first posts within 14 days of kickoff.",
   },
   {
-    question: "What does an engagement look like?",
+    id: "delivery-onboarding",
+    category: "Delivery",
+    question: "What does onboarding look like?",
     answer:
-      "Diagnose, architect, implement, optimize. Most systems go live in 8–12 weeks, with optional retainers to expand channels, formats, and distribution.",
+      "We start with a deep-dive strategy session, voice and audience audit, competitive positioning review, and content pillar mapping. You receive a documented brand architecture, approval workflows, and a live publishing calendar before a single post goes out.",
+  },
+  {
+    id: "linkedin-growth",
+    category: "LinkedIn Growth",
+    question: "How fast will I see growth on LinkedIn?",
+    answer:
+      "Clients typically see measurable lift within 30–45 days — profile views, engagement rate, and inbound DMs. Compounding authority results (4× pipeline, speaking invites, category recognition) land in the 90-day window when cadence and narrative stay consistent.",
+  },
+  {
+    id: "linkedin-voice",
+    category: "LinkedIn Growth",
+    question: "Do you ghostwrite in my actual voice?",
+    answer:
+      "Yes. We build a voice model from your existing content, calls, and approved samples — then run every draft through human editorial review. Our 92% voice-match approval rate exists because the infrastructure is trained on you, not a template.",
+  },
+  {
+    id: "branding-difference",
+    category: "Personal Branding",
+    question: "How is this different from a marketing agency?",
+    answer:
+      "Agencies ship campaigns. We install operating systems — strategy, AI workflows, design systems, and publishing infrastructure that compound without you in every draft. You're building category authority, not renting attention.",
+  },
+  {
+    id: "branding-results",
+    category: "Personal Branding",
+    question: "What results should I expect in 90 days?",
+    answer:
+      "Profile visits up 3–10×, engagement rates above 4%, consistent inbound DMs, and a recognizable point of view in your market. Exact metrics depend on your starting point — we benchmark in week one and report against it monthly.",
+  },
+  {
+    id: "ai-generic",
+    category: "AI Systems",
+    question: "Will AI make my content sound generic?",
+    answer:
+      "Not when it's built correctly. Generic output comes from generic prompts. Our systems use your voice profile, proof library, audience personas, and editorial guardrails — AI handles speed; humans own strategy and final approval.",
+  },
+  {
+    id: "ai-ownership",
+    category: "AI Systems",
+    question: "Who owns the content and systems we build?",
+    answer:
+      "You do. All content, brand assets, prompt libraries, and workflow documentation belong to you. We hand off the full stack at engagement end — no platform lock-in, no hostage data.",
+  },
+] as const;
+
+export const footerBrandStatement =
+  "We install personal branding operating systems for founders and executives who need market trust at scale — strategy, AI content infrastructure, and LinkedIn authority that compounds.";
+
+export const footerNavColumns = [
+  {
+    title: "Product",
+    links: [
+      { label: "Services", href: "/services" },
+      { label: "AI Demo", href: "/#ai-demo" },
+      { label: "Pricing", href: "/pricing" },
+      { label: "Portfolio", href: "/portfolio" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { label: "About", href: "/about" },
+      { label: "Case Studies", href: "/#case-studies" },
+      { label: "Contact", href: "/contact" },
+      { label: "Dashboard", href: "/dashboard" },
+    ],
+  },
+  {
+    title: "Resources",
+    links: [
+      { label: "LinkedIn Tools", href: "/#tools" },
+      { label: "Testimonials", href: "/#testimonials" },
+      { label: "FAQ", href: "/#faq" },
+      { label: "Pitch Deck", href: "/pitch" },
+    ],
+  },
+  {
+    title: "Legal",
+    links: [
+      { label: "Privacy Policy", href: "/privacy" },
+      { label: "Terms of Service", href: "/terms" },
+      { label: "Cookie Policy", href: "/cookies" },
+    ],
+  },
+] as const;
+
+export const footerSocialLinks = [
+  {
+    label: "LinkedIn",
+    href: "https://linkedin.com",
+    icon: "linkedin" as const,
+  },
+  {
+    label: "X (Twitter)",
+    href: "https://x.com",
+    icon: "x" as const,
+  },
+  {
+    label: "Instagram",
+    href: "https://instagram.com",
+    icon: "instagram" as const,
   },
 ] as const;

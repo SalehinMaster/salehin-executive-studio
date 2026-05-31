@@ -13,7 +13,7 @@ import { ButtonLink } from "@/components/ui/button-link";
 import { FadeIn } from "@/components/ui/fade-in";
 import { GlassCard } from "@/components/ui/glass-card";
 import { Section } from "@/components/ui/section";
-import { strategyCallHref } from "@/lib/routes";
+import { StrategyCallButton } from "@/components/ui/strategy-call-button";
 import { cn } from "@/lib/utils";
 
 const trustStats = [
@@ -94,10 +94,10 @@ export function Hero() {
             </p>
 
             <div className="mt-8 flex w-full flex-col items-stretch justify-center gap-3 sm:mt-10 sm:flex-row sm:items-center sm:gap-5">
-              <ButtonLink href={strategyCallHref} className="w-full sm:w-auto sm:min-w-[200px]">
+              <StrategyCallButton className="w-full sm:w-auto sm:min-w-[200px]">
                 Book Strategy Call
                 <ArrowRight className="size-4 stroke-[1.5]" />
-              </ButtonLink>
+              </StrategyCallButton>
               <ButtonLink
                 href="#ai-demo"
                 variant="secondary"

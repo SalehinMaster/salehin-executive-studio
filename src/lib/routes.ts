@@ -8,4 +8,5 @@ export const routes = [
 ] as const;
 
 export const strategyCallHref = "/contact";
+export const schedulingHref = "/contact#scheduling";
 export const dashboardHref = "/dashboard";
