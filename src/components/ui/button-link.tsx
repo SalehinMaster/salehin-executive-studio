@@ -1,4 +1,8 @@
+"use client";
+
 import Link from "next/link";
+import { trackCtaClick } from "@/lib/analytics/track";
+import type { CtaClickParams } from "@/lib/analytics/types";
 import { cn } from "@/lib/utils";
 
 type ButtonLinkProps = {
@@ -8,6 +12,7 @@ type ButtonLinkProps = {
   className?: string;
   onClick?: () => void;
   tabIndex?: number;
+  analytics?: Pick<CtaClickParams, "ctaLabel" | "ctaLocation" | "destination">;
 };
 
 export function ButtonLink({
@@ -17,11 +22,22 @@ export function ButtonLink({
   className,
   onClick,
   tabIndex,
+  analytics,
 }: ButtonLinkProps) {
   return (
     <Link
       href={href}
-      onClick={onClick}
+      onClick={(event) => {
+        onClick?.();
+        if (analytics) {
+          trackCtaClick({
+            ctaLabel: analytics.ctaLabel,
+            ctaLocation: analytics.ctaLocation,
+            destination: analytics.destination ?? href,
+            ctaType: "navigation",
+          });
+        }
+      }}
       tabIndex={tabIndex}
       className={cn(
         "focus-ring touch-target inline-flex min-h-11 items-center justify-center gap-2 rounded-lg px-6 text-label transition-all",

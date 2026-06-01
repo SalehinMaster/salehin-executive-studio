@@ -1,13 +1,15 @@
+import { conversionPaths } from "@/lib/internal-links";
+
 export const routes = [
   { href: "/", label: "Home" },
-  { href: "/services", label: "Services" },
-  { href: "/portfolio", label: "Portfolio" },
-  { href: "/blog", label: "Insights" },
-  { href: "/pricing", label: "Pricing" },
+  { href: conversionPaths.services, label: "Services" },
+  { href: conversionPaths.portfolio, label: "Portfolio" },
+  { href: conversionPaths.blog, label: "Insights" },
+  { href: conversionPaths.pricing, label: "Pricing" },
   { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  { href: conversionPaths.contact, label: "Contact" },
 ] as const;
 
-export const strategyCallHref = "/contact";
-export const schedulingHref = "/contact#scheduling";
+export const strategyCallHref = conversionPaths.scheduling;
+export const schedulingHref = conversionPaths.scheduling;
 export const dashboardHref = "/dashboard";

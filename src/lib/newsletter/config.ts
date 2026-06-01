@@ -22,6 +22,7 @@ export const newsletterSources = [
   "home-cta",
   "home-newsletter",
   "portfolio",
+  "page-hub",
   "inline",
 ] as const;
 

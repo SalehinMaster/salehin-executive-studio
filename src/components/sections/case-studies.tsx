@@ -104,9 +104,17 @@ export function CaseStudies() {
         ))}
       </div>
 
-      <FadeIn className="mt-12 flex justify-center md:mt-14">
+      <FadeIn className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-8 md:mt-14">
         <TextLink href="/portfolio">
           Explore full portfolio
+          <ArrowRight className="size-4 stroke-[1.5]" />
+        </TextLink>
+        <TextLink href="/pricing" className="text-muted">
+          View pricing tiers
+          <ArrowRight className="size-4 stroke-[1.5]" />
+        </TextLink>
+        <TextLink href="/contact#scheduling" className="text-primary">
+          Book a strategy call
           <ArrowRight className="size-4 stroke-[1.5]" />
         </TextLink>
       </FadeIn>

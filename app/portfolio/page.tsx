@@ -1,4 +1,4 @@
-import { PageShell } from "@/components/layout/page-shell";
+import { PageWithHub } from "@/components/layout/page-with-hub";
 import { NewsletterCapture } from "@/components/newsletter/newsletter-capture";
 import { createPageMetadata } from "@/lib/seo/metadata";
 
@@ -11,9 +11,12 @@ export const metadata = createPageMetadata({
 
 export default function PortfolioPage() {
   return (
-    <PageShell
+    <PageWithHub
+      pathname="/portfolio"
+      ctaLocation="portfolio"
       title="Portfolio"
       description="Leaders across finance, health, and venture who installed a personal branding operating system — and turned visibility into trust, pipeline, and growth."
+      showNewsletterOnCta={false}
     >
       <NewsletterCapture
         source="portfolio"
@@ -24,6 +27,6 @@ export default function PortfolioPage() {
         title="Get portfolio drops first"
         description="New case studies and authority playbooks — delivered before they hit the site."
       />
-    </PageShell>
+    </PageWithHub>
   );
 }

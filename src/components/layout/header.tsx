@@ -117,7 +117,10 @@ export function Header({ pathname }: HeaderProps) {
               Dashboard
             </ButtonLink>
           )}
-          <StrategyCallButton className="h-10 px-5 text-[11px]">
+          <StrategyCallButton
+            className="h-10 px-5 text-[11px]"
+            analyticsLocation="header-desktop"
+          >
             Book Strategy Call
           </StrategyCallButton>
         </div>
@@ -219,6 +222,7 @@ export function Header({ pathname }: HeaderProps) {
             <StrategyCallButton
               className="min-h-11 w-full justify-center"
               tabIndex={mobileOpen ? 0 : -1}
+              analyticsLocation="header-mobile"
               onClick={closeMobileMenu}
             >
               Book Strategy Call

@@ -30,9 +30,17 @@ export function Portfolio() {
           </FadeIn>
         ))}
       </div>
-      <FadeIn className="mt-12">
+      <FadeIn className="mt-12 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-8">
         <TextLink href="/portfolio">
           Full portfolio
+          <ArrowRight className="size-4 stroke-[1.5]" />
+        </TextLink>
+        <TextLink href="/services" className="text-muted">
+          Our services
+          <ArrowRight className="size-4 stroke-[1.5]" />
+        </TextLink>
+        <TextLink href="/contact#scheduling" className="text-primary">
+          Book strategy call
           <ArrowRight className="size-4 stroke-[1.5]" />
         </TextLink>
       </FadeIn>

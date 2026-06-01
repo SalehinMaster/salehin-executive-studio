@@ -2,8 +2,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BlogArticleBody } from "@/components/blog/blog-article-body";
 import { RelatedPosts } from "@/components/blog/related-posts";
+import { InternalLinkHub } from "@/components/layout/internal-link-hub";
+import { PremiumPageCta } from "@/components/layout/premium-page-cta";
 import { GlassCard } from "@/components/ui/glass-card";
 import { TextLink } from "@/components/ui/text-link";
+import { getContextualInternalLinks } from "@/lib/internal-links";
 import {
   blogPostPath,
   formatPostDate,
@@ -114,12 +117,17 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
               {post.category}
             </Link>
           </p>
-          <TextLink href="/contact">Book a strategy call →</TextLink>
+          <TextLink href="/contact#scheduling">Book a strategy call →</TextLink>
         </footer>
         </article>
 
-        <div className="mx-auto mt-4 w-full max-w-6xl">
+        <div className="mx-auto mt-4 w-full max-w-6xl space-y-12 md:space-y-16">
           <RelatedPosts post={post} />
+          <InternalLinkHub
+            title="Continue your authority journey"
+            links={getContextualInternalLinks(`/blog/${slug}`)}
+          />
+          <PremiumPageCta location={`blog-${slug}`} />
         </div>
       </div>
     </>

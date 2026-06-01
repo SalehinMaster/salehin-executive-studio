@@ -94,7 +94,10 @@ export function Hero() {
             </p>
 
             <div className="mt-8 flex w-full flex-col items-stretch justify-center gap-3 sm:mt-10 sm:flex-row sm:items-center sm:gap-5">
-              <StrategyCallButton className="w-full sm:w-auto sm:min-w-[200px]">
+              <StrategyCallButton
+                className="w-full sm:w-auto sm:min-w-[200px]"
+                analyticsLocation="home-hero"
+              >
                 Book Strategy Call
                 <ArrowRight className="size-4 stroke-[1.5]" />
               </StrategyCallButton>
@@ -102,6 +105,11 @@ export function Hero() {
                 href="#ai-demo"
                 variant="secondary"
                 className="group w-full sm:w-auto sm:min-w-[200px]"
+                analytics={{
+                  ctaLabel: "Try AI Demo",
+                  ctaLocation: "home-hero",
+                  destination: "#ai-demo",
+                }}
               >
                 <Bot className="size-4 stroke-[1.5] transition-transform group-hover:scale-110" />
                 Try AI Demo

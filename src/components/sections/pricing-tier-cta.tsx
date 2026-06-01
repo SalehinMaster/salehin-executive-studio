@@ -20,6 +20,8 @@ export function PricingTierCTA({
       <StrategyCallButton
         variant={highlighted ? "primary" : "secondary"}
         className="w-full"
+        analyticsLocation={`pricing-tier-${tierId}`}
+        analyticsLabel={cta}
       >
         {cta}
         <ArrowRight className="size-4 stroke-[1.5]" />
@@ -29,9 +31,14 @@ export function PricingTierCTA({
 
   return (
     <ButtonLink
-      href="/contact"
+      href="/contact#scheduling"
       variant={highlighted ? "primary" : "secondary"}
       className="w-full"
+      analytics={{
+        ctaLabel: cta,
+        ctaLocation: `pricing-tier-${tierId}`,
+        destination: "/contact#scheduling",
+      }}
     >
       {cta}
       <ArrowRight className="size-4 stroke-[1.5]" />

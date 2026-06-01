@@ -1,10 +1,11 @@
-import { Check, Sparkles } from "lucide-react";
+import { ArrowRight, Check, Sparkles } from "lucide-react";
 import { FadeIn } from "@/components/ui/fade-in";
 import { GlassCard } from "@/components/ui/glass-card";
 import { Section } from "@/components/ui/section";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { pricingTiers } from "@/lib/home-content";
+import { TextLink } from "@/components/ui/text-link";
 import { PricingTierCTA } from "@/components/sections/pricing-tier-cta";
+import { pricingTiers } from "@/lib/home-content";
 import { cn } from "@/lib/utils";
 
 export function Pricing() {
@@ -106,11 +107,25 @@ export function Pricing() {
         ))}
       </div>
 
-      <FadeIn delay={0.3} className="mt-10 text-center md:mt-14">
-        <p className="text-sm text-muted">
+      <FadeIn delay={0.3} className="mt-10 flex flex-col items-center gap-6 md:mt-14">
+        <p className="text-center text-sm text-muted">
           All plans include a 30-day satisfaction guarantee.{" "}
           <span className="text-foreground">No long-term lock-in.</span>
         </p>
+        <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-8">
+          <TextLink href="/pricing">
+            Full pricing page
+            <ArrowRight className="size-4 stroke-[1.5]" />
+          </TextLink>
+          <TextLink href="/services" className="text-muted">
+            Service details
+            <ArrowRight className="size-4 stroke-[1.5]" />
+          </TextLink>
+          <TextLink href="/contact#scheduling" className="text-primary">
+            Book strategy call
+            <ArrowRight className="size-4 stroke-[1.5]" />
+          </TextLink>
+        </div>
       </FadeIn>
     </Section>
   );

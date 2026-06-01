@@ -111,9 +111,17 @@ export function Services() {
         })}
       </div>
 
-      <FadeIn className="mt-12 flex justify-center">
+      <FadeIn className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-8">
         <TextLink href="/services">
           Explore the full service stack
+          <ArrowRight className="size-4 stroke-[1.5]" />
+        </TextLink>
+        <TextLink href="/pricing" className="text-muted">
+          Compare pricing
+          <ArrowRight className="size-4 stroke-[1.5]" />
+        </TextLink>
+        <TextLink href="/blog" className="text-muted">
+          Read insights
           <ArrowRight className="size-4 stroke-[1.5]" />
         </TextLink>
       </FadeIn>

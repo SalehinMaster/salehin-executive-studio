@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
+import { AnalyticsScripts } from "@/components/analytics/analytics-scripts";
 import { JsonLdScript } from "@/components/seo/json-ld-script";
 import { SiteChrome } from "@/components/layout/site-chrome";
 import { createRootMetadata } from "@/lib/seo/metadata";
@@ -37,6 +38,7 @@ export default function RootLayout({
       className={`${inter.variable} ${cormorant.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-background font-sans text-foreground">
+        <AnalyticsScripts />
         <JsonLdScript />
         <SiteChrome>{children}</SiteChrome>
       </body>

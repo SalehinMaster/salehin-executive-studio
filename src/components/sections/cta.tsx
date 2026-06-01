@@ -71,15 +71,21 @@ export function CTA() {
                   "w-full shadow-glow-primary sm:w-auto sm:min-w-[210px]",
                   "bg-gradient-brand hover:opacity-95 hover:shadow-[var(--shadow-glow-primary),0_0_80px_rgba(124,58,237,0.45)]",
                 )}
+                analyticsLocation="home-cta"
               >
                 Book Strategy Call
                 <ArrowRight className="size-4 stroke-[1.5]" />
               </StrategyCallButton>
 
               <ButtonLink
-                href="/#pricing"
+                href="/pricing"
                 variant="secondary"
                 className="w-full border-primary/20 bg-surface/60 backdrop-blur-sm sm:w-auto sm:min-w-[180px]"
+                analytics={{
+                  ctaLabel: "Get Started",
+                  ctaLocation: "home-cta",
+                  destination: "/pricing",
+                }}
               >
                 Get Started
                 <ArrowRight className="size-4 stroke-[1.5]" />
@@ -89,6 +95,11 @@ export function CTA() {
                 href="/#ai-demo"
                 variant="ghost"
                 className="group w-full border-border-strong bg-surface/30 sm:w-auto sm:min-w-[180px]"
+                analytics={{
+                  ctaLabel: "Try AI Demo",
+                  ctaLocation: "home-cta",
+                  destination: "/#ai-demo",
+                }}
               >
                 <Bot className="size-4 stroke-[1.5] transition-transform group-hover:scale-110" />
                 Try AI Demo

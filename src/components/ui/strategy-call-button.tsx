@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { useCalendly } from "@/components/scheduling/calendly-provider";
+import { trackConversion, trackCtaClick } from "@/lib/analytics/track";
 import { cn } from "@/lib/utils";
 
 type StrategyCallButtonProps = {
@@ -10,6 +11,9 @@ type StrategyCallButtonProps = {
   className?: string;
   tabIndex?: number;
   onClick?: () => void;
+  /** Analytics context — e.g. "home-hero", "page-services" */
+  analyticsLocation?: string;
+  analyticsLabel?: string;
 };
 
 export function StrategyCallButton({
@@ -18,6 +22,8 @@ export function StrategyCallButton({
   className,
   tabIndex,
   onClick,
+  analyticsLocation,
+  analyticsLabel = "Book strategy call",
 }: StrategyCallButtonProps) {
   const { openCalendly } = useCalendly();
 
@@ -28,6 +34,16 @@ export function StrategyCallButton({
       tabIndex={tabIndex}
       onClick={() => {
         onClick?.();
+        trackCtaClick({
+          ctaLabel: analyticsLabel,
+          ctaLocation: analyticsLocation,
+          ctaType: "calendly",
+          destination: "calendly_modal",
+        });
+        trackConversion({
+          conversionName: "strategy_call_click",
+          source: analyticsLocation,
+        });
         openCalendly();
       }}
     >

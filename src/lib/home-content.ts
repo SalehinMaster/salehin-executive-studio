@@ -438,16 +438,18 @@ export const footerNavColumns = [
     title: "Product",
     links: [
       { label: "Services", href: "/services" },
-      { label: "AI Demo", href: "/#ai-demo" },
       { label: "Pricing", href: "/pricing" },
       { label: "Portfolio", href: "/portfolio" },
+      { label: "Insights & Blog", href: "/blog" },
+      { label: "AI Demo", href: "/#ai-demo" },
     ],
   },
   {
     title: "Company",
     links: [
       { label: "About", href: "/about" },
-      { label: "Case Studies", href: "/#case-studies" },
+      { label: "Case Studies", href: "/portfolio" },
+      { label: "Book Strategy Call", href: "/contact#scheduling" },
       { label: "Contact", href: "/contact" },
       { label: "Dashboard", href: "/dashboard" },
     ],
@@ -455,11 +457,11 @@ export const footerNavColumns = [
   {
     title: "Resources",
     links: [
-      { label: "Insights & Blog", href: "/blog" },
       { label: "Free Resources", href: "/#lead-magnet" },
       { label: "LinkedIn Tools", href: "/#tools" },
       { label: "Testimonials", href: "/#testimonials" },
       { label: "FAQ", href: "/#faq" },
+      { label: "Newsletter", href: "/#cta" },
       { label: "Pitch Deck", href: "/pitch" },
     ],
   },

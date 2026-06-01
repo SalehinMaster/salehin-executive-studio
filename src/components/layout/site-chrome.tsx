@@ -2,6 +2,7 @@
 
 import { Suspense } from "react";
 import { usePathname } from "next/navigation";
+import { AnalyticsPageView } from "@/components/analytics/analytics-page-view";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { AuthModal } from "@/components/auth/auth-modal";
@@ -19,6 +20,9 @@ function SiteChromeInner({ children }: SiteChromeProps) {
 
   return (
     <>
+      <Suspense fallback={null}>
+        <AnalyticsPageView />
+      </Suspense>
       <Header key={pathname} pathname={pathname} />
       {children}
       <Footer />

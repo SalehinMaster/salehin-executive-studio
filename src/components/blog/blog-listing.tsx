@@ -1,8 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { Search } from "lucide-react";
 import { useMemo, useState } from "react";
 import { BlogPostCard } from "@/components/blog/blog-post-card";
+import { conversionPaths } from "@/lib/internal-links";
 import {
   filterPostsByCategory,
   searchPosts,
@@ -107,6 +109,22 @@ export function BlogListing({ posts }: BlogListingProps) {
           </p>
         </div>
       )}
+
+      <p className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-border/60 pt-8 text-sm text-muted">
+        <span className="text-eyebrow text-foreground/80">Also explore</span>
+        <Link href={conversionPaths.services} className="focus-ring hover:text-primary">
+          Services
+        </Link>
+        <Link href={conversionPaths.pricing} className="focus-ring hover:text-primary">
+          Pricing
+        </Link>
+        <Link href={conversionPaths.portfolio} className="focus-ring hover:text-primary">
+          Portfolio
+        </Link>
+        <Link href={conversionPaths.scheduling} className="focus-ring text-primary">
+          Book a call
+        </Link>
+      </p>
     </div>
   );
 }

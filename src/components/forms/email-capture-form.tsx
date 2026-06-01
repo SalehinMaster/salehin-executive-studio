@@ -4,6 +4,7 @@ import { ArrowRight, Loader2, Mail } from "lucide-react";
 import { useState } from "react";
 import { EmailCaptureSuccess } from "@/components/forms/email-capture-success";
 import { Button } from "@/components/ui/button";
+import { trackFormSubmit } from "@/lib/analytics/track";
 import { getFormspreeEndpoint } from "@/lib/formspree-config";
 import type { NewsletterSource } from "@/lib/newsletter/config";
 import { validateEmail } from "@/lib/validate-email";
@@ -123,6 +124,12 @@ export function EmailCaptureForm({
       if (!response.ok) {
         throw new Error(data.error ?? "Something went wrong. Please try again.");
       }
+
+      trackFormSubmit({
+        formType,
+        source: useNewsletterApi ? newsletterSource : formType,
+        resource,
+      });
 
       setSubmitted(true);
       setEmail("");
