@@ -270,6 +270,21 @@
   contain-intrinsic-size: auto 500px;
 }
 
+/* ─── Blog article prose ─── */
+@utility blog-prose {
+  & h2 {
+    scroll-margin-top: calc(var(--header-height) + 1rem);
+  }
+
+  & p {
+    max-width: 65ch;
+  }
+
+  & p + p {
+    margin-top: 0;
+  }
+}
+
 /* ─── Focus ring (a11y) ─── */
 @utility focus-ring {
   &:focus-visible {

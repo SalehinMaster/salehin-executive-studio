@@ -455,6 +455,7 @@ export const footerNavColumns = [
   {
     title: "Resources",
     links: [
+      { label: "Insights & Blog", href: "/blog" },
       { label: "Free Resources", href: "/#lead-magnet" },
       { label: "LinkedIn Tools", href: "/#tools" },
       { label: "Testimonials", href: "/#testimonials" },

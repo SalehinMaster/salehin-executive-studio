@@ -7,6 +7,7 @@ type SectionHeadingProps = {
   align?: "left" | "center";
   className?: string;
   invert?: boolean;
+  titleId?: string;
 };
 
 export function SectionHeading({
@@ -16,6 +17,7 @@ export function SectionHeading({
   align = "left",
   className,
   invert = false,
+  titleId,
 }: SectionHeadingProps) {
   return (
     <div
@@ -46,6 +48,7 @@ export function SectionHeading({
         </div>
       ) : null}
       <h2
+        id={titleId}
         className={cn(
           "text-display-section font-display font-medium tracking-tight text-balance",
           invert ? "text-on-inverse" : "text-foreground",
