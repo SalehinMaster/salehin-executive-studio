@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { BarChart3, GitBranch } from "lucide-react";
+import { BarChart3, GitBranch, LayoutGrid } from "lucide-react";
 import { AddLeadForm } from "@/components/crm/add-lead-form";
 import { CrmStatsBar } from "@/components/crm/crm-stats-bar";
 import { PipelineBoard } from "@/components/crm/pipeline-board";
@@ -50,6 +50,14 @@ export default async function CrmDashboardPage() {
     >
       <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
         <div className="flex flex-wrap gap-3">
+          <ButtonLink href="/operations" variant="secondary" className="gap-2">
+            <LayoutGrid className="size-4" aria-hidden />
+            Operations
+          </ButtonLink>
+          <ButtonLink href="/operations/kpi" variant="secondary" className="gap-2">
+            <BarChart3 className="size-4" aria-hidden />
+            Executive KPIs
+          </ButtonLink>
           <ButtonLink href="/crm/funnel" variant="secondary" className="gap-2">
             <GitBranch className="size-4" aria-hidden />
             Sales funnel

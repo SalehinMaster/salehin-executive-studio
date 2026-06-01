@@ -15,3 +15,7 @@ export const schedulingHref = conversionPaths.scheduling;
 export const dashboardHref = "/dashboard";
 export const clientPortalHref = "/client";
 export const proposalHref = "/proposal";
+export const knowledgeHref = "/knowledge";
+export const supportHref = "/support";
+export const operationsHref = "/operations";
+export const executiveKpiHref = "/operations/kpi";

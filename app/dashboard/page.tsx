@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { FileText, GitBranch, Sparkles } from "lucide-react";
+import { BarChart3, FileText, GitBranch, Sparkles } from "lucide-react";
 import { PageShell } from "@/components/layout/page-shell";
 import { GlassCard } from "@/components/ui/glass-card";
 import { ButtonLink } from "@/components/ui/button-link";
@@ -89,8 +89,18 @@ export default async function DashboardPage() {
             <ButtonLink href="/client" variant="secondary" className="gap-2">
               Client portal
             </ButtonLink>
+            <ButtonLink href="/knowledge" variant="ghost">
+              Knowledge base
+            </ButtonLink>
+            <ButtonLink href="/support" variant="ghost">
+              Support center
+            </ButtonLink>
             {crmAdmin ? (
               <>
+                <ButtonLink href="/operations" variant="secondary" className="gap-2">
+                  <BarChart3 className="size-4" aria-hidden />
+                  Operations
+                </ButtonLink>
                 <ButtonLink href="/crm" variant="secondary" className="gap-2">
                   <GitBranch className="size-4" aria-hidden />
                   CRM Dashboard
