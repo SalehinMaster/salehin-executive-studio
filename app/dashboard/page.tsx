@@ -85,17 +85,25 @@ export default async function DashboardPage() {
             </div>
           </div>
 
-          {crmAdmin ? (
-            <div className="flex flex-wrap gap-3 border-t border-border/80 pt-6">
-              <ButtonLink href="/crm" variant="secondary" className="gap-2">
-                <GitBranch className="size-4" aria-hidden />
-                CRM Dashboard
-              </ButtonLink>
-              <ButtonLink href="/crm/funnel" variant="ghost">
-                Sales funnel
-              </ButtonLink>
-            </div>
-          ) : null}
+          <div className="flex flex-wrap gap-3 border-t border-border/80 pt-6">
+            <ButtonLink href="/client" variant="secondary" className="gap-2">
+              Client portal
+            </ButtonLink>
+            {crmAdmin ? (
+              <>
+                <ButtonLink href="/crm" variant="secondary" className="gap-2">
+                  <GitBranch className="size-4" aria-hidden />
+                  CRM Dashboard
+                </ButtonLink>
+                <ButtonLink href="/crm/funnel" variant="ghost">
+                  Sales funnel
+                </ButtonLink>
+                <ButtonLink href="/proposal" variant="ghost">
+                  Proposal generator
+                </ButtonLink>
+              </>
+            ) : null}
+          </div>
 
           <DashboardSignOutButton />
         </GlassCard>

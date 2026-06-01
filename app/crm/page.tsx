@@ -57,6 +57,9 @@ export default async function CrmDashboardPage() {
           <ButtonLink href="/intake" variant="ghost" className="gap-2">
             Client intake form
           </ButtonLink>
+          <ButtonLink href="/proposal" variant="ghost" className="gap-2">
+            Proposal generator
+          </ButtonLink>
         </div>
       </div>
 

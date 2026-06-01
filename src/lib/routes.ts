@@ -13,3 +13,5 @@ export const routes = [
 export const strategyCallHref = conversionPaths.scheduling;
 export const schedulingHref = conversionPaths.scheduling;
 export const dashboardHref = "/dashboard";
+export const clientPortalHref = "/client";
+export const proposalHref = "/proposal";

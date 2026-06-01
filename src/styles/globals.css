@@ -104,3 +104,28 @@ body {
   border-color: color-mix(in srgb, var(--primary) 55%, transparent);
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--primary) 25%, transparent);
 }
+
+/* Phase 34 — proposal PDF / print export */
+@media print {
+  body {
+    background: #fff !important;
+    color: #0f172a !important;
+  }
+
+  header,
+  footer,
+  .proposal-builder > div > div:first-child,
+  .print\:hidden {
+    display: none !important;
+  }
+
+  .proposal-preview {
+    border: none !important;
+    box-shadow: none !important;
+    color: #0f172a !important;
+  }
+
+  .proposal-preview * {
+    color: inherit !important;
+  }
+}
