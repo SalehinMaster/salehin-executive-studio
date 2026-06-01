@@ -36,7 +36,7 @@ export const SAAS_NAV: readonly SaasNavItem[] = [
   {
     id: "ai-tools",
     label: "AI Tools",
-    description: "Generate authority content with models",
+    description: "Posts, hooks, bios, rewrites & carousels",
     href: "/dashboard/ai-tools",
     icon: Wand2,
   },
