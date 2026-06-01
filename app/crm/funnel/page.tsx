@@ -25,7 +25,7 @@ export default async function SalesFunnelPage() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect("/?auth=signin&next=/crm/funnel");
+    redirect("/login?next=/crm/funnel");
   }
 
   if (!isCrmAdminEmail(user.email)) {

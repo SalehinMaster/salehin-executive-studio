@@ -1,8 +1,12 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import {
+  AUTH_ROUTES,
+  isAuthPage,
+  isProtectedPath,
+  sanitizeRedirectPath,
+} from "@/lib/auth/paths";
 import type { Database } from "@/types/database";
-
-const PROTECTED_PREFIXES = ["/dashboard"];
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
@@ -33,21 +37,28 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   const { pathname, searchParams } = request.nextUrl;
-  const isProtected = PROTECTED_PREFIXES.some(
-    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
-  );
 
-  if (isProtected && !user) {
+  if (isProtectedPath(pathname) && !user) {
     const redirectUrl = request.nextUrl.clone();
-    redirectUrl.pathname = "/";
-    redirectUrl.searchParams.set("auth", "signin");
-    redirectUrl.searchParams.set("next", `${pathname}${request.nextUrl.search}`);
+    redirectUrl.pathname = AUTH_ROUTES.login;
+    redirectUrl.searchParams.set(
+      "next",
+      sanitizeRedirectPath(`${pathname}${request.nextUrl.search}`),
+    );
+    redirectUrl.searchParams.delete("auth");
     return NextResponse.redirect(redirectUrl);
   }
 
-  if (pathname.startsWith("/auth") && user && searchParams.get("type") !== "recovery") {
+  if (isAuthPage(pathname) && user) {
     const redirectUrl = request.nextUrl.clone();
-    redirectUrl.pathname = searchParams.get("next") || "/dashboard";
+    redirectUrl.pathname = sanitizeRedirectPath(searchParams.get("next"));
+    redirectUrl.search = "";
+    return NextResponse.redirect(redirectUrl);
+  }
+
+  if (pathname.startsWith("/auth/callback") && user && searchParams.get("type") !== "recovery") {
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.pathname = sanitizeRedirectPath(searchParams.get("next"));
     redirectUrl.search = "";
     return NextResponse.redirect(redirectUrl);
   }

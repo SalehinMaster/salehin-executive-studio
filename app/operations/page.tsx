@@ -22,7 +22,7 @@ export default async function OperationsPage() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect("/?auth=signin&next=/operations");
+    redirect("/login?next=/operations");
   }
 
   if (!isOperationsAdmin(user.email)) {

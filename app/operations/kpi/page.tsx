@@ -25,7 +25,7 @@ export default async function ExecutiveKpiPage() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect("/?auth=signin&next=/operations/kpi");
+    redirect("/login?next=/operations/kpi");
   }
 
   if (!isOperationsAdmin(user.email)) {

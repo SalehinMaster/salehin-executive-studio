@@ -20,7 +20,7 @@ export default async function ClientPortalPage() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect("/?auth=signin&next=/client");
+    redirect("/login?next=/client");
   }
 
   const { data: profile } = await supabase

@@ -7,7 +7,7 @@ import { useAuth } from "@/components/auth/auth-provider";
 import { Button } from "@/components/ui/button";
 import { ButtonLink } from "@/components/ui/button-link";
 import { StrategyCallButton } from "@/components/ui/strategy-call-button";
-import { routes } from "@/lib/routes";
+import { loginHref, routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
 type HeaderProps = {
@@ -15,7 +15,7 @@ type HeaderProps = {
 };
 
 export function Header({ pathname }: HeaderProps) {
-  const { user, loading, openAuth } = useAuth();
+  const { user, loading } = useAuth();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
@@ -24,11 +24,6 @@ export function Header({ pathname }: HeaderProps) {
   const closeMobileMenu = useCallback(() => {
     setMobileOpen(false);
   }, []);
-
-  const handleSignIn = useCallback(() => {
-    closeMobileMenu();
-    openAuth({ redirectTo: "/dashboard" });
-  }, [closeMobileMenu, openAuth]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -104,9 +99,9 @@ export function Header({ pathname }: HeaderProps) {
 
         <div className="hidden items-center gap-3 lg:flex">
           {!loading && !user && (
-            <Button variant="ghost" className="h-10 px-4 text-[11px]" onClick={handleSignIn}>
+            <ButtonLink href={loginHref} variant="ghost" className="h-10 px-4 text-[11px]">
               Sign In
-            </Button>
+            </ButtonLink>
           )}
           {!loading && user && (
             <ButtonLink
@@ -199,14 +194,15 @@ export function Header({ pathname }: HeaderProps) {
           })}
           <div className="mt-2 space-y-2 border-t border-border pt-3 sm:mt-3 sm:pt-4">
             {!loading && !user && (
-              <Button
+              <ButtonLink
+                href={loginHref}
                 variant="ghost"
                 className="min-h-11 w-full justify-center"
                 tabIndex={mobileOpen ? 0 : -1}
-                onClick={handleSignIn}
+                onClick={closeMobileMenu}
               >
                 Sign In
-              </Button>
+              </ButtonLink>
             )}
             {!loading && user && (
               <ButtonLink

@@ -1,142 +1,111 @@
-import { redirect } from "next/navigation";
-import { BarChart3, FileText, GitBranch, Sparkles } from "lucide-react";
-import { PageShell } from "@/components/layout/page-shell";
+import { FileText, Sparkles, Wand2, Zap } from "lucide-react";
+import Link from "next/link";
 import { GlassCard } from "@/components/ui/glass-card";
 import { ButtonLink } from "@/components/ui/button-link";
-import { DashboardSignOutButton } from "@/components/dashboard/sign-out-button";
+import { requireSessionUser } from "@/lib/auth/session";
+import { fetchSaasDashboardData } from "@/lib/saas/queries";
 import { isCrmAdminEmail } from "@/lib/crm/admin";
-import { createClient } from "@/utils/supabase/server";
-import type { UserProfile } from "@/types/database";
 
-export const metadata = {
-  title: "Dashboard | Salehin Executive Studio",
-  description: "Your premium content studio dashboard.",
-};
+export default async function DashboardHomePage() {
+  const { user } = await requireSessionUser("/dashboard");
+  const { profile, subscription, recentGenerations, favoritesCount, recentUsage } =
+    await fetchSaasDashboardData(user.id);
 
-export default async function DashboardPage() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    redirect("/?auth=signin&next=/dashboard");
-  }
-
-  const { data: profile } = await supabase
-    .from("users")
-    .select("*")
-    .eq("id", user.id)
-    .single();
-
-  const typedProfile = profile as UserProfile | null;
-
-  const { data: recentPosts } = await supabase
-    .from("posts_history")
-    .select("id, topic, platform, created_at")
-    .eq("user_id", user.id)
-    .order("created_at", { ascending: false })
-    .limit(5);
-
-  const tier = typedProfile?.tier ?? "free";
+  const tier = profile?.tier ?? "free";
+  const plan = subscription?.plan ?? "free";
   const crmAdmin = isCrmAdminEmail(user.email);
-  const displayName =
-    typedProfile?.full_name ??
-    user.user_metadata?.full_name ??
-    user.email?.split("@")[0] ??
-    "Member";
+  const generationCount = recentGenerations.length;
 
   return (
-    <PageShell
-      title={`Welcome, ${displayName}`}
-      description="Your content studio is ready. Generate posts, track history, and upgrade when you're ready for premium workflows."
-    >
+    <div className="mx-auto max-w-5xl space-y-8">
+      <div>
+        <p className="text-eyebrow text-primary">Dashboard</p>
+        <h1 className="mt-2 font-display text-2xl text-foreground sm:text-3xl">
+          Your brand operating system
+        </h1>
+        <p className="mt-2 max-w-2xl text-sm text-muted">
+          Generate authority content, review saved outputs, and track AI usage — all
+          in one executive-grade workspace.
+        </p>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <GlassCard className="p-5">
+          <p className="text-eyebrow text-muted">Plan</p>
+          <p className="mt-2 flex items-center gap-2 font-display text-2xl capitalize text-foreground">
+            {tier === "premium" && <Sparkles className="size-5 text-primary" aria-hidden />}
+            {plan}
+          </p>
+          <p className="mt-1 text-xs text-subtle">{subscription?.status ?? "active"}</p>
+        </GlassCard>
+        <GlassCard className="p-5">
+          <p className="text-eyebrow text-muted">Recent outputs</p>
+          <p className="mt-2 font-display text-2xl text-foreground">{generationCount}</p>
+        </GlassCard>
+        <GlassCard className="p-5">
+          <p className="text-eyebrow text-muted">Favorites</p>
+          <p className="mt-2 font-display text-2xl text-foreground">{favoritesCount}</p>
+        </GlassCard>
+        <GlassCard className="p-5">
+          <p className="text-eyebrow text-muted">Usage events</p>
+          <p className="mt-2 font-display text-2xl text-foreground">{recentUsage.length}</p>
+        </GlassCard>
+      </div>
+
       <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-        <GlassCard variant="strong" glow="soft" className="space-y-6 p-6 sm:p-8">
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            <div>
-              <p className="text-eyebrow text-secondary">Account</p>
-              <p className="mt-2 font-display text-xl text-foreground">
-                {user.email}
-              </p>
-            </div>
-            <span
-              className={
-                tier === "premium"
-                  ? "inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/15 px-3 py-1 text-xs font-medium tracking-wide text-primary uppercase"
-                  : "inline-flex items-center gap-1.5 rounded-full border border-border-strong bg-surface/80 px-3 py-1 text-xs font-medium tracking-wide text-muted uppercase"
-              }
-            >
-              {tier === "premium" && <Sparkles className="size-3.5" aria-hidden />}
-              {tier} plan
-            </span>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="rounded-lg border border-border bg-surface/50 p-4">
-              <p className="text-eyebrow text-muted">Recent posts</p>
-              <p className="mt-2 font-display text-3xl text-foreground">
-                {recentPosts?.length ?? 0}
-              </p>
-            </div>
-            <div className="rounded-lg border border-border bg-surface/50 p-4">
-              <p className="text-eyebrow text-muted">Platform</p>
-              <p className="mt-2 text-sm text-foreground">LinkedIn-first studio</p>
+        <GlassCard variant="strong" glow="soft" className="space-y-6 p-6">
+          <div>
+            <p className="text-eyebrow text-secondary">Quick actions</p>
+            <div className="mt-4 flex flex-wrap gap-3">
+              <ButtonLink href="/dashboard/ai-tools" className="gap-2">
+                <Wand2 className="size-4" aria-hidden />
+                Open AI Tools
+              </ButtonLink>
+              <ButtonLink href="/dashboard/saved" variant="secondary" className="gap-2">
+                <FileText className="size-4" aria-hidden />
+                Saved outputs
+              </ButtonLink>
+              <ButtonLink href="/dashboard/analytics" variant="ghost" className="gap-2">
+                <Zap className="size-4" aria-hidden />
+                Analytics
+              </ButtonLink>
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-3 border-t border-border/80 pt-6">
-            <ButtonLink href="/client" variant="secondary" className="gap-2">
-              Client portal
-            </ButtonLink>
-            <ButtonLink href="/knowledge" variant="ghost">
-              Knowledge base
-            </ButtonLink>
-            <ButtonLink href="/support" variant="ghost">
-              Support center
-            </ButtonLink>
-            {crmAdmin ? (
-              <>
-                <ButtonLink href="/operations" variant="secondary" className="gap-2">
-                  <BarChart3 className="size-4" aria-hidden />
+          {crmAdmin ? (
+            <div className="border-t border-border/80 pt-6">
+              <p className="text-eyebrow text-muted">Admin</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <ButtonLink href="/crm" variant="ghost" className="text-xs">
+                  CRM
+                </ButtonLink>
+                <ButtonLink href="/operations" variant="ghost" className="text-xs">
                   Operations
                 </ButtonLink>
-                <ButtonLink href="/crm" variant="secondary" className="gap-2">
-                  <GitBranch className="size-4" aria-hidden />
-                  CRM Dashboard
+                <ButtonLink href="/client" variant="ghost" className="text-xs">
+                  Client portal
                 </ButtonLink>
-                <ButtonLink href="/crm/funnel" variant="ghost">
-                  Sales funnel
-                </ButtonLink>
-                <ButtonLink href="/proposal" variant="ghost">
-                  Proposal generator
-                </ButtonLink>
-              </>
-            ) : null}
-          </div>
-
-          <DashboardSignOutButton />
+              </div>
+            </div>
+          ) : null}
         </GlassCard>
 
-        <GlassCard className="space-y-4 p-6 sm:p-8">
-          <div>
-            <p className="text-eyebrow text-primary">Post history</p>
-            <h3 className="mt-2 font-display text-lg text-foreground">
-              Latest generations
-            </h3>
-          </div>
-
-          {recentPosts && recentPosts.length > 0 ? (
+        <GlassCard className="space-y-4 p-6">
+          <p className="text-eyebrow text-primary">Latest generations</p>
+          {recentGenerations.length > 0 ? (
             <ul className="space-y-3">
-              {recentPosts.map((post) => (
+              {recentGenerations.map((gen) => (
                 <li
-                  key={post.id}
+                  key={gen.id}
                   className="rounded-lg border border-border bg-surface/40 px-4 py-3"
                 >
-                  <p className="text-sm font-medium text-foreground">{post.topic}</p>
+                  <p className="text-sm font-medium text-foreground">
+                    {gen.title ?? gen.prompt}
+                  </p>
                   <p className="mt-1 text-xs text-muted capitalize">
-                    {post.platform} ·{" "}
-                    {new Date(post.created_at).toLocaleDateString(undefined, {
+                    {gen.tool_type.replace("_", " ")}
+                    {gen.model ? ` · ${gen.model}` : ""} ·{" "}
+                    {new Date(gen.created_at).toLocaleDateString(undefined, {
                       month: "short",
                       day: "numeric",
                     })}
@@ -145,16 +114,16 @@ export default async function DashboardPage() {
               ))}
             </ul>
           ) : (
-            <div className="rounded-lg border border-dashed border-border-strong px-4 py-8 text-center">
-              <FileText className="mx-auto size-5 text-muted opacity-50" aria-hidden />
-              <p className="mt-3 text-sm text-muted">
-                No posts saved yet. Generate from the home demo and they&apos;ll
-                appear here once connected.
-              </p>
-            </div>
+            <p className="text-sm text-muted">
+              No generations yet.{" "}
+              <Link href="/dashboard/ai-tools" className="text-primary hover:underline">
+                Create your first post
+              </Link>
+              .
+            </p>
           )}
         </GlassCard>
       </div>
-    </PageShell>
+    </div>
   );
 }

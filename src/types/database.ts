@@ -2,6 +2,22 @@ export type UserTier = "free" | "premium";
 
 export type Platform = "linkedin" | "twitter" | "instagram";
 
+export type SubscriptionPlan = "free" | "pro" | "enterprise";
+
+export type SubscriptionStatus =
+  | "active"
+  | "canceled"
+  | "past_due"
+  | "trialing"
+  | "inactive";
+
+export type GenerationTool =
+  | "linkedin_post"
+  | "twitter_post"
+  | "bio"
+  | "headline"
+  | "other";
+
 export type LeadPipelineStage =
   | "new_lead"
   | "qualified_lead"
@@ -214,6 +230,177 @@ export type Database = {
           },
         ];
       };
+      generations: {
+        Row: {
+          id: string;
+          user_id: string;
+          tool_type: GenerationTool;
+          title: string | null;
+          prompt: string;
+          output: string;
+          model: string | null;
+          platform: Platform | null;
+          metadata: Json;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          tool_type?: GenerationTool;
+          title?: string | null;
+          prompt: string;
+          output: string;
+          model?: string | null;
+          platform?: Platform | null;
+          metadata?: Json;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          tool_type?: GenerationTool;
+          title?: string | null;
+          prompt?: string;
+          output?: string;
+          model?: string | null;
+          platform?: Platform | null;
+          metadata?: Json;
+          created_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "generations_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      favorites: {
+        Row: {
+          id: string;
+          user_id: string;
+          generation_id: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          generation_id: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          generation_id?: string;
+          created_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "favorites_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "favorites_generation_id_fkey";
+            columns: ["generation_id"];
+            isOneToOne: false;
+            referencedRelation: "generations";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      subscriptions: {
+        Row: {
+          id: string;
+          user_id: string;
+          plan: SubscriptionPlan;
+          status: SubscriptionStatus;
+          stripe_customer_id: string | null;
+          stripe_subscription_id: string | null;
+          current_period_start: string | null;
+          current_period_end: string | null;
+          metadata: Json;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          plan?: SubscriptionPlan;
+          status?: SubscriptionStatus;
+          stripe_customer_id?: string | null;
+          stripe_subscription_id?: string | null;
+          current_period_start?: string | null;
+          current_period_end?: string | null;
+          metadata?: Json;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          plan?: SubscriptionPlan;
+          status?: SubscriptionStatus;
+          stripe_customer_id?: string | null;
+          stripe_subscription_id?: string | null;
+          current_period_start?: string | null;
+          current_period_end?: string | null;
+          metadata?: Json;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "subscriptions_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      usage_tracking: {
+        Row: {
+          id: string;
+          user_id: string;
+          action: string;
+          model: string | null;
+          tokens_used: number | null;
+          metadata: Json;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          action: string;
+          model?: string | null;
+          tokens_used?: number | null;
+          metadata?: Json;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          action?: string;
+          model?: string | null;
+          tokens_used?: number | null;
+          metadata?: Json;
+          created_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "usage_tracking_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       client_intake_submissions: {
         Row: {
           id: string;
@@ -270,6 +457,9 @@ export type Database = {
     Enums: {
       user_tier: UserTier;
       platform_type: Platform;
+      subscription_plan: SubscriptionPlan;
+      subscription_status: SubscriptionStatus;
+      generation_tool: GenerationTool;
       lead_pipeline_stage: LeadPipelineStage;
       funnel_step: FunnelStep;
       lead_source: LeadSource;
@@ -281,3 +471,7 @@ export type Database = {
 
 export type UserProfile = Database["public"]["Tables"]["users"]["Row"];
 export type PostHistory = Database["public"]["Tables"]["posts_history"]["Row"];
+export type Generation = Database["public"]["Tables"]["generations"]["Row"];
+export type Favorite = Database["public"]["Tables"]["favorites"]["Row"];
+export type Subscription = Database["public"]["Tables"]["subscriptions"]["Row"];
+export type UsageRecord = Database["public"]["Tables"]["usage_tracking"]["Row"];

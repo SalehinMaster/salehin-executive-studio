@@ -21,7 +21,7 @@ export default async function ProposalPage() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect("/?auth=signin&next=/proposal");
+    redirect("/login?next=/proposal");
   }
 
   if (!isCrmAdminEmail(user.email)) {

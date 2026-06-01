@@ -31,7 +31,7 @@ export default async function CrmDashboardPage() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect("/?auth=signin&next=/crm");
+    redirect("/login?next=/crm");
   }
 
   if (!isCrmAdminEmail(user.email)) {

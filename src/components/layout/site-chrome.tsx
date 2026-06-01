@@ -10,6 +10,7 @@ import { AuthProvider } from "@/components/auth/auth-provider";
 import { CalendlyModal } from "@/components/scheduling/calendly-modal";
 import { CalendlyProvider } from "@/components/scheduling/calendly-provider";
 import { ToastProvider } from "@/components/ui/toast-provider";
+import { usesMinimalChrome } from "@/lib/auth/paths";
 
 type SiteChromeProps = {
   children: React.ReactNode;
@@ -17,15 +18,16 @@ type SiteChromeProps = {
 
 function SiteChromeInner({ children }: SiteChromeProps) {
   const pathname = usePathname();
+  const minimal = usesMinimalChrome(pathname);
 
   return (
     <>
       <Suspense fallback={null}>
         <AnalyticsPageView />
       </Suspense>
-      <Header key={pathname} pathname={pathname} />
+      {minimal ? null : <Header key={pathname} pathname={pathname} />}
       {children}
-      <Footer />
+      {minimal ? null : <Footer />}
       <AuthModal />
       <CalendlyModal />
     </>
