@@ -2,6 +2,7 @@
 
 import { ArrowRight, Bot, Sparkles } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
+import { NewsletterCapture } from "@/components/newsletter/newsletter-capture";
 import { ButtonLink } from "@/components/ui/button-link";
 import { FadeIn } from "@/components/ui/fade-in";
 import { StrategyCallButton } from "@/components/ui/strategy-call-button";
@@ -98,6 +99,18 @@ export function CTA() {
               30-minute strategy calls · No obligation · Response within two
               business days
             </p>
+
+            <div className="mx-auto mt-12 max-w-xl border-t border-border/60 pt-10 sm:mt-14">
+              <NewsletterCapture
+                source="home-cta"
+                inputId="cta-newsletter-email"
+                variant="compact"
+                layout="inline"
+                eyebrow="Newsletter"
+                title="Not ready for a call?"
+                description="Get the weekly authority briefing — LinkedIn systems, AI workflows, zero fluff."
+              />
+            </div>
           </div>
         </div>
       </FadeIn>

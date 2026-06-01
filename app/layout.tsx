@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
+import { JsonLdScript } from "@/components/seo/json-ld-script";
 import { SiteChrome } from "@/components/layout/site-chrome";
+import { createRootMetadata } from "@/lib/seo/metadata";
 import "@/styles/globals.css";
 
 const inter = Inter({
@@ -16,11 +18,7 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "Salehin Executive Studio — AI-Powered Personal Branding OS",
-  description:
-    "Premium personal branding infrastructure for founders, CEOs, and leaders — LinkedIn ghostwriting, strategy, AI content systems, and authority building.",
-};
+export const metadata: Metadata = createRootMetadata();
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -39,6 +37,7 @@ export default function RootLayout({
       className={`${inter.variable} ${cormorant.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-background font-sans text-foreground">
+        <JsonLdScript />
         <SiteChrome>{children}</SiteChrome>
       </body>
     </html>

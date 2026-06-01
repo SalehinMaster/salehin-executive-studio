@@ -94,3 +94,13 @@ body {
   background: color-mix(in srgb, var(--primary) 35%, transparent);
   color: var(--foreground);
 }
+
+/* Newsletter capture — glassmorphic subscription surfaces */
+.newsletter-glass input:not(:disabled) {
+  border-color: color-mix(in srgb, var(--border-strong) 85%, var(--primary) 15%);
+}
+
+.newsletter-glass input:not(:disabled):focus {
+  border-color: color-mix(in srgb, var(--primary) 55%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--primary) 25%, transparent);
+}

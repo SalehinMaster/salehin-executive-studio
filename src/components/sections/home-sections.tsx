@@ -74,6 +74,14 @@ const Pricing = dynamic(
   { loading: () => <SectionPlaceholder /> },
 );
 
+const NewsletterSection = dynamic(
+  () =>
+    import("@/components/sections/newsletter-section").then(
+      (mod) => mod.NewsletterSection,
+    ),
+  { loading: () => <SectionPlaceholder /> },
+);
+
 const CTA = dynamic(
   () => import("@/components/sections/cta").then((mod) => mod.CTA),
   { loading: () => <SectionPlaceholder /> },
@@ -103,6 +111,7 @@ export function HomeSections() {
       <Testimonials />
       <Pricing />
       <FAQ />
+      <NewsletterSection />
       <CTA />
     </>
   );

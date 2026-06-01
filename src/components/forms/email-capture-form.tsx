@@ -5,6 +5,7 @@ import { useState } from "react";
 import { EmailCaptureSuccess } from "@/components/forms/email-capture-success";
 import { Button } from "@/components/ui/button";
 import { getFormspreeEndpoint } from "@/lib/formspree-config";
+import type { NewsletterSource } from "@/lib/newsletter/config";
 import { validateEmail } from "@/lib/validate-email";
 import { cn } from "@/lib/utils";
 
@@ -14,8 +15,9 @@ const inputClassName = cn(
 );
 
 type EmailCaptureFormProps = {
-  formId: string;
+  formId?: string;
   formType: "lead-magnet" | "newsletter";
+  newsletterSource?: NewsletterSource;
   submitLabel: string;
   successTitle: string;
   successMessage: string;
@@ -28,8 +30,9 @@ type EmailCaptureFormProps = {
 };
 
 export function EmailCaptureForm({
-  formId,
+  formId = "",
   formType,
+  newsletterSource = "inline",
   submitLabel,
   successTitle,
   successMessage,
@@ -46,7 +49,8 @@ export function EmailCaptureForm({
   const [submitted, setSubmitted] = useState(false);
   const [touched, setTouched] = useState(false);
 
-  const endpoint = formId ? getFormspreeEndpoint(formId) : "";
+  const formspreeEndpoint = formId ? getFormspreeEndpoint(formId) : "";
+  const useNewsletterApi = formType === "newsletter";
 
   const handleBlur = () => {
     setTouched(true);
@@ -77,7 +81,7 @@ export function EmailCaptureForm({
       return;
     }
 
-    if (!endpoint) {
+    if (!useNewsletterApi && !formspreeEndpoint) {
       setError(
         "Email capture is not configured yet. Add your Formspree form ID to .env.local.",
       );
@@ -88,22 +92,31 @@ export function EmailCaptureForm({
     setError(null);
 
     try {
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: result.normalized,
-          _subject:
-            formType === "lead-magnet"
-              ? `Lead magnet: ${resource ?? "Resource bundle"}`
-              : "Newsletter subscription",
-          form_type: formType,
-          ...(resource ? { resource } : {}),
-        }),
-      });
+      const response = useNewsletterApi
+        ? await fetch("/api/newsletter/subscribe", {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: result.normalized,
+              source: newsletterSource,
+            }),
+          })
+        : await fetch(formspreeEndpoint, {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: result.normalized,
+              _subject: `Lead magnet: ${resource ?? "Resource bundle"}`,
+              form_type: formType,
+              ...(resource ? { resource } : {}),
+            }),
+          });
 
       const data = (await response.json()) as { ok?: boolean; error?: string };
 

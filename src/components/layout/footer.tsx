@@ -1,14 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { EmailCaptureForm } from "@/components/forms/email-capture-form";
+import { NewsletterCapture } from "@/components/newsletter/newsletter-capture";
 import { FadeIn } from "@/components/ui/fade-in";
 import {
   footerBrandStatement,
   footerNavColumns,
   footerSocialLinks,
 } from "@/lib/home-content";
-import { formspreeNewsletterId } from "@/lib/formspree-config";
 
 function LinkedInIcon({ className }: { className?: string }) {
   return (
@@ -68,27 +67,12 @@ export function Footer() {
               </p>
             </div>
 
-            <div className="glass-card glow-border-primary p-5 sm:p-6">
-              <p className="text-eyebrow text-primary">Newsletter</p>
-              <h3 className="mt-2 font-display text-lg font-medium text-foreground">
-                Authority insights, weekly
-              </h3>
-              <p className="mt-2 text-sm text-muted">
-                LinkedIn growth tactics, AI workflows, and personal branding
-                systems — no fluff.
-              </p>
-
-              <EmailCaptureForm
-                formId={formspreeNewsletterId}
-                formType="newsletter"
-                inputId="footer-email"
-                submitLabel="Subscribe"
-                successTitle="You're subscribed"
-                successMessage="Check your inbox for the first authority briefing — LinkedIn tactics, AI workflows, and branding systems."
-                layout="inline"
-                className="mt-5"
-              />
-            </div>
+            <NewsletterCapture
+              source="footer"
+              inputId="footer-email"
+              variant="featured"
+              layout="inline"
+            />
           </div>
         </FadeIn>
 
