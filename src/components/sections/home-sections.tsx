@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import { FunnelTracker } from "@/components/crm/funnel-tracker";
 import { Hero } from "@/components/sections/hero";
 
 const ProblemSolution = dynamic(
@@ -99,6 +100,7 @@ function SectionPlaceholder({ tall = false }: { tall?: boolean }) {
 export function HomeSections() {
   return (
     <>
+      <FunnelTracker step="homepage" />
       <Hero />
       <ProblemSolution />
       <Services />

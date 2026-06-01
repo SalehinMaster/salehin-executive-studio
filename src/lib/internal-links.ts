@@ -4,6 +4,9 @@
 export const conversionPaths = {
   scheduling: "/contact#scheduling",
   contact: "/contact",
+  intake: "/intake",
+  crm: "/crm",
+  salesFunnel: "/crm/funnel",
   leadMagnet: "/#lead-magnet",
   homeCta: "/#cta",
   pricing: "/pricing",

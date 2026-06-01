@@ -2,6 +2,7 @@
 
 import { FileText, ListChecks, Lock, Sparkles } from "lucide-react";
 import { useState } from "react";
+import { FunnelTracker } from "@/components/crm/funnel-tracker";
 import { EmailCaptureForm } from "@/components/forms/email-capture-form";
 import { FadeIn } from "@/components/ui/fade-in";
 import { GlassCard } from "@/components/ui/glass-card";
@@ -28,6 +29,7 @@ export function LeadMagnet() {
 
   return (
     <Section id="lead-magnet" lazy className="relative border-t border-border">
+      <FunnelTracker step="lead_magnet" />
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/35 to-transparent"
         aria-hidden

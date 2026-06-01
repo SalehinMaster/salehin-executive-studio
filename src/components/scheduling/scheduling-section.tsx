@@ -1,6 +1,7 @@
 "use client";
 
 import { Calendar, Sparkles } from "lucide-react";
+import { FunnelTracker } from "@/components/crm/funnel-tracker";
 import { CalendlyEmbed } from "@/components/scheduling/calendly-embed";
 import { GlassCard } from "@/components/ui/glass-card";
 import { hasCalendlyConfig } from "@/lib/calendly-config";
@@ -8,6 +9,7 @@ import { hasCalendlyConfig } from "@/lib/calendly-config";
 export function SchedulingSection() {
   return (
     <section id="scheduling" className="relative">
+      <FunnelTracker step="calendly_booking" />
       <GlassCard variant="strong" glow="soft" className="glow-border-primary overflow-hidden">
         <div
           className="pointer-events-none absolute -top-20 -right-16 size-48 rounded-full bg-primary/20 blur-3xl"

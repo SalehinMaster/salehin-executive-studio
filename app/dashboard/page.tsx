@@ -1,8 +1,10 @@
 import { redirect } from "next/navigation";
-import { FileText, Sparkles } from "lucide-react";
+import { FileText, GitBranch, Sparkles } from "lucide-react";
 import { PageShell } from "@/components/layout/page-shell";
 import { GlassCard } from "@/components/ui/glass-card";
+import { ButtonLink } from "@/components/ui/button-link";
 import { DashboardSignOutButton } from "@/components/dashboard/sign-out-button";
+import { isCrmAdminEmail } from "@/lib/crm/admin";
 import { createClient } from "@/utils/supabase/server";
 import type { UserProfile } from "@/types/database";
 
@@ -37,6 +39,7 @@ export default async function DashboardPage() {
     .limit(5);
 
   const tier = typedProfile?.tier ?? "free";
+  const crmAdmin = isCrmAdminEmail(user.email);
   const displayName =
     typedProfile?.full_name ??
     user.user_metadata?.full_name ??
@@ -81,6 +84,18 @@ export default async function DashboardPage() {
               <p className="mt-2 text-sm text-foreground">LinkedIn-first studio</p>
             </div>
           </div>
+
+          {crmAdmin ? (
+            <div className="flex flex-wrap gap-3 border-t border-border/80 pt-6">
+              <ButtonLink href="/crm" variant="secondary" className="gap-2">
+                <GitBranch className="size-4" aria-hidden />
+                CRM Dashboard
+              </ButtonLink>
+              <ButtonLink href="/crm/funnel" variant="ghost">
+                Sales funnel
+              </ButtonLink>
+            </div>
+          ) : null}
 
           <DashboardSignOutButton />
         </GlassCard>
