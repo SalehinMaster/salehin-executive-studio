@@ -401,6 +401,99 @@ export type Database = {
           },
         ];
       };
+      beta_waitlist: {
+        Row: {
+          id: string;
+          email: string;
+          name: string | null;
+          company: string | null;
+          source: string;
+          user_id: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          email: string;
+          name?: string | null;
+          company?: string | null;
+          source?: string;
+          user_id?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          email?: string;
+          name?: string | null;
+          company?: string | null;
+          source?: string;
+          user_id?: string | null;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      beta_feedback: {
+        Row: {
+          id: string;
+          user_id: string | null;
+          rating: number | null;
+          category: string;
+          message: string;
+          metadata: Json;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id?: string | null;
+          rating?: number | null;
+          category: string;
+          message: string;
+          metadata?: Json;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string | null;
+          rating?: number | null;
+          category?: string;
+          message?: string;
+          metadata?: Json;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      beta_bug_reports: {
+        Row: {
+          id: string;
+          user_id: string | null;
+          title: string;
+          description: string;
+          severity: string;
+          status: string;
+          metadata: Json;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id?: string | null;
+          title: string;
+          description: string;
+          severity?: string;
+          status?: string;
+          metadata?: Json;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string | null;
+          title?: string;
+          description?: string;
+          severity?: string;
+          status?: string;
+          metadata?: Json;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
       client_intake_submissions: {
         Row: {
           id: string;

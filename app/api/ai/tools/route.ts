@@ -10,6 +10,14 @@ import {
   generateLinkedInPostTool,
 } from "@/lib/ai/tools/generate";
 import { getSessionUser } from "@/lib/auth/session";
+import {
+  buildAccessContext,
+  canAccessTool,
+  canUseModel,
+  evaluateUsageLimits,
+  getAccessDeniedMessage,
+} from "@/lib/saas/access-control";
+import { fetchSubscription, fetchUsageAnalytics } from "@/lib/saas/queries";
 import type {
   AiToolsGenerateError,
   AiToolsGenerateRequest,
@@ -83,6 +91,37 @@ export async function POST(request: Request) {
     return NextResponse.json<AiToolsGenerateError>(
       { error: "A valid model selection is required (deepseek, mistral, or llama)." },
       { status: 400 },
+    );
+  }
+
+  const subscription = await fetchSubscription(user.id);
+  const { tier } = buildAccessContext(subscription);
+
+  if (!canAccessTool(tier, body.tool)) {
+    return NextResponse.json<AiToolsGenerateError>(
+      { error: getAccessDeniedMessage(body.tool, tier) },
+      { status: 403 },
+    );
+  }
+
+  if (!canUseModel(tier, body.model)) {
+    return NextResponse.json<AiToolsGenerateError>(
+      { error: "This model is not available on your plan. Upgrade to Pro or Agency." },
+      { status: 403 },
+    );
+  }
+
+  const usage = await fetchUsageAnalytics(user.id);
+  const limitCheck = evaluateUsageLimits({
+    tier,
+    dailyCount: usage.dailyCount,
+    monthlyCount: usage.monthlyCount,
+  });
+
+  if (!limitCheck.allowed) {
+    return NextResponse.json<AiToolsGenerateError>(
+      { error: limitCheck.reason ?? "Usage limit reached." },
+      { status: 429 },
     );
   }
 

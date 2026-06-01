@@ -49,11 +49,20 @@ export function SaasSidebar({
           {SAAS_NAV.map((item) => {
             const Icon = item.icon;
             const active = activeId === item.id;
+            const onboardingAttr =
+              item.id === "ai-tools"
+                ? "nav-ai-tools"
+                : item.id === "saved"
+                  ? "nav-saved"
+                  : item.id === "analytics"
+                    ? "nav-analytics"
+                    : undefined;
             return (
               <li key={item.id}>
                 <Link
                   href={item.href}
                   onClick={onNavigate}
+                  {...(onboardingAttr ? { "data-onboarding": onboardingAttr } : {})}
                   className={cn(
                     "focus-ring group flex items-start gap-3 rounded-lg px-3 py-2.5 transition-all",
                     active

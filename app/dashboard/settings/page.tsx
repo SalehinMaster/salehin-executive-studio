@@ -1,24 +1,26 @@
+import { SubscriptionTierCards } from "@/components/saas/subscription-tier-cards";
 import { GlassCard } from "@/components/ui/glass-card";
 import { DashboardSignOutButton } from "@/components/dashboard/sign-out-button";
 import { requireSessionUser, getUserProfile } from "@/lib/auth/session";
-import { createClient } from "@/utils/supabase/server";
-
+import { fetchSubscription } from "@/lib/saas/queries";
+import { getTierConfig, resolveSaasTier } from "@/lib/saas/subscription-plans";
 export const metadata = {
   title: "Settings | Studio",
 };
 
 export default async function SettingsPage() {
-  const { user, supabase } = await requireSessionUser("/dashboard/settings");
+  const { user } = await requireSessionUser("/dashboard/settings");
   const profile = await getUserProfile(user.id);
 
-  const { data: subscription } = await supabase
-    .from("subscriptions")
-    .select("plan, status, current_period_end")
-    .eq("user_id", user.id)
-    .maybeSingle();
+  const subscription = await fetchSubscription(user.id);
+  const tier = resolveSaasTier({
+    plan: subscription?.plan,
+    status: subscription?.status,
+  });
+  const tierConfig = getTierConfig(tier);
 
   return (
-    <div className="mx-auto max-w-2xl space-y-8">
+    <div className="mx-auto max-w-5xl space-y-8">
       <div>
         <p className="text-eyebrow text-primary">Settings</p>
         <h1 className="mt-2 font-display text-2xl text-foreground">Account</h1>
@@ -45,15 +47,24 @@ export default async function SettingsPage() {
 
       <GlassCard className="space-y-4 p-6">
         <p className="text-eyebrow text-secondary">Subscription</p>
-        <p className="text-sm text-foreground capitalize">
-          Plan: {subscription?.plan ?? "free"} · Status: {subscription?.status ?? "inactive"}
+        <p className="text-sm text-foreground">
+          Current: <span className="font-medium capitalize">{tierConfig.label}</span>
+          <span className="text-muted">
+            {" "}
+            · Status: {subscription?.status ?? "inactive"}
+          </span>
         </p>
         {subscription?.current_period_end ? (
           <p className="text-xs text-muted">
             Period ends {new Date(subscription.current_period_end).toLocaleDateString()}
           </p>
         ) : null}
+        <p className="text-xs text-subtle">
+          Mock Stripe price IDs below — wire to checkout when billing goes live.
+        </p>
       </GlassCard>
+
+      <SubscriptionTierCards currentTier={tier} />
 
       <GlassCard className="p-6">
         <p className="text-eyebrow text-muted">Session</p>

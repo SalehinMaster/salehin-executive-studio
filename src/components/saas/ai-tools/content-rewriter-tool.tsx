@@ -6,21 +6,30 @@ import { ErrorAlert } from "@/components/saas/ai-tools/error-alert";
 import { FormField, FormTextarea } from "@/components/saas/ai-tools/form-field";
 import { ModelSelector } from "@/components/saas/ai-tools/model-selector";
 import { ResultCard, ResultsPanel, ToolShell } from "@/components/saas/ai-tools/tool-shell";
+import type { AiToolTierProps } from "@/components/saas/ai-tools/tool-tier-props";
 import { useAiToolGenerate } from "@/components/saas/ai-tools/use-ai-tool-generate";
+import { GenerationOutputActions } from "@/components/saas/generation-output-actions";
 import { Button } from "@/components/ui/button";
 import type { OpenRouterModelKey } from "@/lib/ai/models";
+import { canUseModel } from "@/lib/saas/access-control";
 import { cn } from "@/lib/utils";
 import { REWRITER_TONE_OPTIONS, type RewriterTone } from "@/types/ai-tools";
 
-export function ContentRewriterTool() {
+export function ContentRewriterTool({ tier, allowedModels }: AiToolTierProps) {
+  const defaultModel = allowedModels[0] ?? "deepseek";
   const [text, setText] = useState("");
   const [tone, setTone] = useState<RewriterTone>("executive");
-  const [model, setModel] = useState<OpenRouterModelKey>("llama");
-  const { output, lastModel, error, loading, generate } = useAiToolGenerate("content_rewriter");
+  const [model, setModel] = useState<OpenRouterModelKey>(defaultModel);
+  const { output, generationId, lastModel, error, loading, generate } =
+    useAiToolGenerate("content_rewriter");
 
   const form = (
     <>
-      <ModelSelector value={model} onChange={setModel} />
+      <ModelSelector
+        value={canUseModel(tier, model) ? model : defaultModel}
+        onChange={setModel}
+        allowedModels={allowedModels}
+      />
       <FormField label="Original text">
         <FormTextarea
           value={text}
@@ -77,15 +86,18 @@ export function ContentRewriterTool() {
       emptyMessage="Executive-level rewritten copy will appear here."
     >
       {output ? (
-        <ResultCard
-          label={`${output.tone.charAt(0).toUpperCase()}${output.tone.slice(1)} voice`}
-          accent="primary"
-          copyText={output.rewritten}
-        >
-          <p className="whitespace-pre-line text-sm leading-relaxed text-foreground">
-            {output.rewritten}
-          </p>
-        </ResultCard>
+        <>
+          <ResultCard
+            label={`${output.tone.charAt(0).toUpperCase()}${output.tone.slice(1)} voice`}
+            accent="primary"
+            copyText={output.rewritten}
+          >
+            <p className="whitespace-pre-line text-sm leading-relaxed text-foreground">
+              {output.rewritten}
+            </p>
+          </ResultCard>
+          <GenerationOutputActions generationId={generationId} />
+        </>
       ) : null}
     </ResultsPanel>
   );

@@ -6,9 +6,12 @@ import { ErrorAlert } from "@/components/saas/ai-tools/error-alert";
 import { FormField, FormTextarea } from "@/components/saas/ai-tools/form-field";
 import { ModelSelector } from "@/components/saas/ai-tools/model-selector";
 import { ResultCard, ResultsPanel, ToolShell } from "@/components/saas/ai-tools/tool-shell";
+import type { AiToolTierProps } from "@/components/saas/ai-tools/tool-tier-props";
 import { useAiToolGenerate } from "@/components/saas/ai-tools/use-ai-tool-generate";
+import { GenerationOutputActions } from "@/components/saas/generation-output-actions";
 import { Button } from "@/components/ui/button";
 import type { OpenRouterModelKey } from "@/lib/ai/models";
+import { canUseModel } from "@/lib/saas/access-control";
 import { demoSuggestions } from "@/lib/linkedin-demo-generator";
 import { cn } from "@/lib/utils";
 import { POST_TONE_OPTIONS, type PostTone } from "@/types/ai-tools";
@@ -19,12 +22,14 @@ const AUDIENCE_SUGGESTIONS = [
   "HR & talent executives",
 ] as const;
 
-export function LinkedInPostTool() {
+export function LinkedInPostTool({ tier, allowedModels }: AiToolTierProps) {
+  const defaultModel = allowedModels[0] ?? "deepseek";
   const [topic, setTopic] = useState("");
   const [audience, setAudience] = useState("");
   const [tone, setTone] = useState<PostTone>("professional");
-  const [model, setModel] = useState<OpenRouterModelKey>("deepseek");
-  const { output, lastModel, error, loading, generate } = useAiToolGenerate("linkedin_post");
+  const [model, setModel] = useState<OpenRouterModelKey>(defaultModel);
+  const { output, generationId, lastModel, error, loading, generate } =
+    useAiToolGenerate("linkedin_post");
 
   const handleGenerate = () => {
     void generate({ topic, audience, tone, model });
@@ -32,7 +37,11 @@ export function LinkedInPostTool() {
 
   const form = (
     <>
-      <ModelSelector value={model} onChange={setModel} />
+      <ModelSelector
+        value={canUseModel(tier, model) ? model : defaultModel}
+        onChange={setModel}
+        allowedModels={allowedModels}
+      />
       <FormField label="Topic">
         <FormTextarea
           value={topic}
@@ -147,6 +156,7 @@ export function LinkedInPostTool() {
               ))}
             </div>
           </ResultCard>
+          <GenerationOutputActions generationId={generationId} />
         </>
       ) : null}
     </ResultsPanel>

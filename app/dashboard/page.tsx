@@ -4,6 +4,7 @@ import { GlassCard } from "@/components/ui/glass-card";
 import { ButtonLink } from "@/components/ui/button-link";
 import { requireSessionUser } from "@/lib/auth/session";
 import { fetchSaasDashboardData } from "@/lib/saas/queries";
+import { getTierConfig, resolveSaasTier } from "@/lib/saas/subscription-plans";
 import { isCrmAdminEmail } from "@/lib/crm/admin";
 
 export default async function DashboardHomePage() {
@@ -11,8 +12,12 @@ export default async function DashboardHomePage() {
   const { profile, subscription, recentGenerations, favoritesCount, recentUsage } =
     await fetchSaasDashboardData(user.id);
 
-  const tier = profile?.tier ?? "free";
-  const plan = subscription?.plan ?? "free";
+  const saasTier = resolveSaasTier({
+    plan: subscription?.plan,
+    status: subscription?.status,
+  });
+  const tierConfig = getTierConfig(saasTier);
+  const profileTier = profile?.tier ?? "free";
   const crmAdmin = isCrmAdminEmail(user.email);
   const generationCount = recentGenerations.length;
 
@@ -33,8 +38,8 @@ export default async function DashboardHomePage() {
         <GlassCard className="p-5">
           <p className="text-eyebrow text-muted">Plan</p>
           <p className="mt-2 flex items-center gap-2 font-display text-2xl capitalize text-foreground">
-            {tier === "premium" && <Sparkles className="size-5 text-primary" aria-hidden />}
-            {plan}
+            {profileTier === "premium" && <Sparkles className="size-5 text-primary" aria-hidden />}
+            {tierConfig.label}
           </p>
           <p className="mt-1 text-xs text-subtle">{subscription?.status ?? "active"}</p>
         </GlassCard>

@@ -7,9 +7,12 @@ import { ErrorAlert } from "@/components/saas/ai-tools/error-alert";
 import { FormField, FormTextarea } from "@/components/saas/ai-tools/form-field";
 import { ModelSelector } from "@/components/saas/ai-tools/model-selector";
 import { ResultsPanel, ToolShell } from "@/components/saas/ai-tools/tool-shell";
+import type { AiToolTierProps } from "@/components/saas/ai-tools/tool-tier-props";
 import { useAiToolGenerate } from "@/components/saas/ai-tools/use-ai-tool-generate";
+import { GenerationOutputActions } from "@/components/saas/generation-output-actions";
 import { Button } from "@/components/ui/button";
 import type { OpenRouterModelKey } from "@/lib/ai/models";
+import { canUseModel } from "@/lib/saas/access-control";
 import type { CarouselSlide } from "@/types/ai-tools";
 
 function formatSlideForCopy(slide: CarouselSlide): string {
@@ -55,10 +58,12 @@ function SlideBlock({ slide }: { slide: CarouselSlide }) {
   );
 }
 
-export function CarouselGeneratorTool() {
+export function CarouselGeneratorTool({ tier, allowedModels }: AiToolTierProps) {
+  const defaultModel = allowedModels[0] ?? "deepseek";
   const [topic, setTopic] = useState("");
-  const [model, setModel] = useState<OpenRouterModelKey>("deepseek");
-  const { output, lastModel, error, loading, generate } = useAiToolGenerate("carousel");
+  const [model, setModel] = useState<OpenRouterModelKey>(defaultModel);
+  const { output, generationId, lastModel, error, loading, generate } =
+    useAiToolGenerate("carousel");
 
   const exportCopy = useMemo(
     () => (output ? formatAllSlidesForCopy(output.slides) : ""),
@@ -67,7 +72,11 @@ export function CarouselGeneratorTool() {
 
   const form = (
     <>
-      <ModelSelector value={model} onChange={setModel} />
+      <ModelSelector
+        value={canUseModel(tier, model) ? model : defaultModel}
+        onChange={setModel}
+        allowedModels={allowedModels}
+      />
       <FormField label="Main topic">
         <FormTextarea
           value={topic}
@@ -107,6 +116,7 @@ export function CarouselGeneratorTool() {
           {output.slides.map((slide) => (
             <SlideBlock key={slide.slideNumber} slide={slide} />
           ))}
+          <GenerationOutputActions generationId={generationId} />
         </>
       ) : null}
     </ResultsPanel>

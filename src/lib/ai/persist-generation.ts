@@ -1,6 +1,6 @@
 import { serializePostContent } from "@/lib/linkedin-demo-generator";
 import type { OpenRouterModelKey } from "@/lib/ai/models";
-import { resolveOpenRouterModelId } from "@/lib/ai/models";
+import { logGenerationUsage } from "@/lib/saas/telemetry";
 import type { LinkedInPostPreview } from "@/types/linkedin-post";
 import { createClient } from "@/utils/supabase/server";
 
@@ -34,16 +34,13 @@ export async function persistGeneration(options: {
     throw new Error(generationError?.message ?? "Failed to save generation.");
   }
 
-  await supabase.from("usage_tracking").insert({
-    user_id: options.userId,
-    action: "generation",
+  await logGenerationUsage({
+    userId: options.userId,
+    tool: "linkedin_post",
     model: options.resolvedModel,
-    tokens_used: options.tokensUsed,
-    metadata: {
-      modelKey: options.modelKey,
-      openRouterModel: resolveOpenRouterModelId(options.modelKey),
-      generationId: generation.id,
-    },
+    tokensUsed: options.tokensUsed,
+    generationId: generation.id as string,
+    modelKey: options.modelKey,
   });
 
   return generation.id as string;

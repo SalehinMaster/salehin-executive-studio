@@ -2,6 +2,7 @@
 
 import {
   Layers,
+  Lock,
   PenLine,
   Sparkles,
   UserRound,
@@ -14,78 +15,84 @@ import { CarouselGeneratorTool } from "@/components/saas/ai-tools/carousel-gener
 import { ContentRewriterTool } from "@/components/saas/ai-tools/content-rewriter-tool";
 import { HookGeneratorTool } from "@/components/saas/ai-tools/hook-generator-tool";
 import { LinkedInPostTool } from "@/components/saas/ai-tools/linkedin-post-tool";
+import { PremiumGate } from "@/components/saas/premium-gate";
+import { canAccessTool } from "@/lib/saas/access-control";
+import {
+  getTierConfig,
+  TOOL_MIN_TIER,
+  type SaasTierId,
+} from "@/lib/saas/subscription-plans";
+import type { AiToolId } from "@/types/ai-tools";
 import { cn } from "@/lib/utils";
 
-type ToolTabId =
-  | "linkedin_post"
-  | "hook_generator"
-  | "bio_optimizer"
-  | "content_rewriter"
-  | "carousel";
+type ToolTabId = AiToolId;
 
 const TOOL_TABS: ReadonlyArray<{
   id: ToolTabId;
   label: string;
   description: string;
   icon: typeof Wand2;
-  phases: string;
 }> = [
   {
     id: "linkedin_post",
     label: "Post Generator",
     description: "Hook, body, CTA, hashtags",
     icon: Wand2,
-    phases: "45",
   },
   {
     id: "hook_generator",
     label: "Hook Generator",
     description: "Curiosity, authority, contrarian, story",
     icon: Zap,
-    phases: "46",
   },
   {
     id: "bio_optimizer",
     label: "Bio Optimizer",
     description: "Premium positioning concepts",
     icon: UserRound,
-    phases: "47",
   },
   {
     id: "content_rewriter",
     label: "Content Rewriter",
     description: "Founder · Professional · Executive",
     icon: PenLine,
-    phases: "48",
   },
   {
     id: "carousel",
     label: "Carousel",
     description: "9-slide design-ready plan",
     icon: Layers,
-    phases: "49",
   },
 ] as const;
 
-function ActiveTool({ id }: { id: ToolTabId }) {
+type AiToolsHubProps = {
+  tier: SaasTierId;
+};
+
+function ActiveTool({ id, tier }: { id: ToolTabId; tier: SaasTierId }) {
+  const allowedModels = getTierConfig(tier).limits.models;
+  const shared = { tier, allowedModels };
+
   switch (id) {
     case "linkedin_post":
-      return <LinkedInPostTool />;
+      return <LinkedInPostTool {...shared} />;
     case "hook_generator":
-      return <HookGeneratorTool />;
+      return <HookGeneratorTool {...shared} />;
     case "bio_optimizer":
-      return <BioOptimizerTool />;
+      return <BioOptimizerTool {...shared} />;
     case "content_rewriter":
-      return <ContentRewriterTool />;
+      return <ContentRewriterTool {...shared} />;
     case "carousel":
-      return <CarouselGeneratorTool />;
+      return <CarouselGeneratorTool {...shared} />;
     default:
       return null;
   }
 }
 
-export function AiToolsHub() {
+export function AiToolsHub({ tier }: AiToolsHubProps) {
   const [activeTab, setActiveTab] = useState<ToolTabId>("linkedin_post");
+  const activeAllowed = canAccessTool(tier, activeTab);
+  const requiredTier = TOOL_MIN_TIER[activeTab];
 
   return (
     <div className="mx-auto max-w-6xl space-y-8">
@@ -107,6 +114,7 @@ export function AiToolsHub() {
         {TOOL_TABS.map((tab) => {
           const Icon = tab.icon;
           const active = activeTab === tab.id;
+          const locked = !canAccessTool(tier, tab.id);
           return (
             <button
               key={tab.id}
@@ -126,6 +134,7 @@ export function AiToolsHub() {
                   aria-hidden
                 />
                 <span className="text-sm font-medium text-foreground">{tab.label}</span>
+                {locked ? <Lock className="size-3 text-subtle" aria-hidden /> : null}
               </span>
               <span className="mt-1 block text-[11px] text-subtle">{tab.description}</span>
             </button>
@@ -135,11 +144,17 @@ export function AiToolsHub() {
 
       <div className="flex items-center gap-2 rounded-lg border border-border/60 bg-surface/30 px-3 py-2 text-xs text-muted">
         <Sparkles className="size-3.5 text-primary" aria-hidden />
-        Phases {TOOL_TABS.find((t) => t.id === activeTab)?.phases} — outputs save to your
-        generation history automatically.
+        Phases 50–55 — outputs save automatically; favorite from results or Saved Outputs.
       </div>
 
-      <ActiveTool id={activeTab} />
+      <PremiumGate
+        allowed={activeAllowed}
+        requiredTier={requiredTier}
+        currentTier={tier}
+        title={`${TOOL_TABS.find((t) => t.id === activeTab)?.label ?? "Tool"} requires upgrade`}
+      >
+        <ActiveTool id={activeTab} tier={tier} />
+      </PremiumGate>
     </div>
   );
 }

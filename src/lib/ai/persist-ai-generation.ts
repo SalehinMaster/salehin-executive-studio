@@ -1,6 +1,6 @@
 import type { OpenRouterModelKey } from "@/lib/ai/models";
-import { resolveOpenRouterModelId } from "@/lib/ai/models";
 import { buildPromptSummary, serializeToolOutput } from "@/lib/ai/tools/generate";
+import { logGenerationUsage } from "@/lib/saas/telemetry";
 import type { AiToolId, AiToolOutputMap } from "@/types/ai-tools";
 import { createClient } from "@/utils/supabase/server";
 
@@ -54,17 +54,13 @@ export async function persistAiToolGeneration<T extends AiToolId>(options: {
     throw new Error(generationError?.message ?? "Failed to save generation.");
   }
 
-  await supabase.from("usage_tracking").insert({
-    user_id: options.userId,
-    action: "generation",
+  await logGenerationUsage({
+    userId: options.userId,
+    tool: options.tool,
     model: options.resolvedModel,
-    tokens_used: options.tokensUsed,
-    metadata: {
-      modelKey: options.modelKey,
-      openRouterModel: resolveOpenRouterModelId(options.modelKey),
-      generationId: generation.id,
-      aiTool: options.tool,
-    },
+    tokensUsed: options.tokensUsed,
+    generationId: generation.id as string,
+    modelKey: options.modelKey,
   });
 
   return generation.id as string;

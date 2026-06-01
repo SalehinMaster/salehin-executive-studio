@@ -12,6 +12,7 @@ import type {
 
 export function useAiToolGenerate<T extends AiToolId>(tool: T) {
   const [output, setOutput] = useState<AiToolOutputMap[T] | null>(null);
+  const [generationId, setGenerationId] = useState<string | null>(null);
   const [lastModel, setLastModel] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -37,6 +38,7 @@ export function useAiToolGenerate<T extends AiToolId>(tool: T) {
 
         const success = data as AiToolsGenerateResponse<T>;
         setOutput(success.output);
+        setGenerationId(success.generationId);
         setLastModel(success.model);
         return success.output;
       } catch {
@@ -51,9 +53,10 @@ export function useAiToolGenerate<T extends AiToolId>(tool: T) {
 
   const reset = useCallback(() => {
     setOutput(null);
+    setGenerationId(null);
     setLastModel(null);
     setError(null);
   }, []);
 
-  return { output, lastModel, error, loading, generate, reset, setError };
+  return { output, generationId, lastModel, error, loading, generate, reset, setError };
 }
