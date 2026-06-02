@@ -66,7 +66,8 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
     <>
       <ArticleJsonLd post={post} />
       <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-container-x py-section md:px-container-x-md md:py-section-lg">
-        <article className="mx-auto w-full max-w-3xl">
+        <div className="mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-[minmax(0,1fr)_280px]">
+        <article className="w-full max-w-3xl">
         <TextLink href="/blog" className="text-muted hover:text-primary">
           ← All insights
         </TextLink>
@@ -120,6 +121,33 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
           <TextLink href="/contact#scheduling">Book a strategy call →</TextLink>
         </footer>
         </article>
+
+        {post.floatingCta ? (
+          <aside className="hidden lg:block">
+            <GlassCard
+              variant="strong"
+              glow="soft"
+              className="sticky top-28 p-6"
+            >
+              <p className="text-xs uppercase tracking-[0.18em] text-primary">Floating CTA</p>
+              <h2 className="mt-4 font-display text-2xl font-medium text-foreground">
+                {post.floatingCta.title}
+              </h2>
+              <p className="mt-3 text-sm text-muted">{post.floatingCta.description}</p>
+              <div className="mt-6 space-y-3">
+                <TextLink href={post.floatingCta.primaryHref}>
+                  {post.floatingCta.primaryLabel} →
+                </TextLink>
+                {post.floatingCta.secondaryHref && post.floatingCta.secondaryLabel ? (
+                  <TextLink href={post.floatingCta.secondaryHref}>
+                    {post.floatingCta.secondaryLabel} →
+                  </TextLink>
+                ) : null}
+              </div>
+            </GlassCard>
+          </aside>
+        ) : null}
+        </div>
 
         <div className="mx-auto mt-4 w-full max-w-6xl space-y-12 md:space-y-16">
           <RelatedPosts post={post} />

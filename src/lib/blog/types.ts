@@ -23,6 +23,25 @@ export type BlogPostSection = {
   paragraphs: string[];
 };
 
+export type BlogPostFaq = {
+  question: string;
+  answer: string;
+};
+
+export type BlogPostInternalLink = {
+  href: string;
+  label: string;
+};
+
+export type BlogFloatingCta = {
+  title: string;
+  description: string;
+  primaryLabel: string;
+  primaryHref: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+};
+
 export type BlogPost = {
   slug: string;
   title: string;
@@ -39,6 +58,9 @@ export type BlogPost = {
   /** Hero eyebrow shown on article page */
   eyebrow?: string;
   sections: BlogPostSection[];
+  faqs?: BlogPostFaq[];
+  internalLinks?: BlogPostInternalLink[];
+  floatingCta?: BlogFloatingCta;
 };
 
 /** Lightweight shape for listing, search, and related grids */
