@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import GlassCard from "@/components/GlassCard";
+import { GlassCard } from '@/src/components/ui/glass-card';
 
 // --- Data Section ---
 

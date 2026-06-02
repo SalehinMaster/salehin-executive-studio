@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 
 // Assume GlassCard is a project-shared luxury glassmorphism wrapper
-import GlassCard from "@/components/GlassCard";
+import { GlassCard } from '@/src/components/ui/glass-card';
 
 // Executive FAQ data
 const faqItems = [
