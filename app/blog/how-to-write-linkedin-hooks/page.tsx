@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import GlassCard from "@/components/GlassCard";
+import { GlassCard } from '../../../src/components/ui/glass-card';
 
 // --- Interactive Hook Builder ---
 const psychologicalTriggers = [
