@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { GlassCard } from '../../../src/components/ui/glass-card';
-import FAQAccordion from '../../../src/components/ui/FAQAccordion';
+import FAQAccordion from "@/components/FAQAccordion";
 
 const faqItems = [
   {
@@ -182,7 +182,7 @@ export default function WhyPersonalBrandingMattersPage() {
                 <span className="font-semibold text-cyan-200">Authority Top-of-Funnel:</span> Publish founder POVs, frameworks, and tough lesson stories weekly. Leads and talent will self-qualify, seeking values-aligned companies.
               </li>
               <li>
-                <span className="font-semibold text-purple-200">Signal - Noise:</span> Quality outperforms quantity. Respond to current events, but prioritize original analysis over rehashed news. Be first or be deep.
+                <span className="font-semibold text-purple-200">Signal > Noise:</span> Quality outperforms quantity. Respond to current events, but prioritize original analysis over rehashed news. Be first or be deep.
               </li>
               <li>
                 <span className="font-semibold text-blue-200">Community Effects:</span> Consistent engagement with industry peers/partners multiplies reach—most “lucky” inbound deals trace back to mutuals and public discourse.

@@ -204,7 +204,7 @@ export default function Page() {
               <strong>AI-Optimized Structure:</strong> Keep hooks & CTAs concise, and body scannable. Use simple visuals, lists, or code-style formatting for clarity.
             </li>
             <li>
-              <strong>Native Engagement:</strong> Invite thoughtful responses, not just “likes.” LinkedIn now favors posts with >60 second average dwell and visible replies.
+              <strong>Native Engagement:</strong> Invite thoughtful responses, not just “likes.” LinkedIn now favors posts with -60 second average dwell and visible replies.
             </li>
           </ul>
           <p className="mt-1 text-blue-100/80 text-sm italic">

@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { GlassCard } from '../../src/components/ui/glass-card';
-import dayjs from "dayjs";
+import { GlassCard } from '../../../src/components/ui/glass-card';
+import dayjs from 'dayjs';
 
 type ScheduledPost = {
   id: number;
