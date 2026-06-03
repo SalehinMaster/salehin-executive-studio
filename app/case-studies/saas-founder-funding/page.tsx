@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { GlassCard } from '@/src/components/ui/glass-card';
+import { GlassCard } from '../../../src/components/ui/glass-card';
 import FloatingCTA from "@/components/FloatingCTA";
 
 export default function SaaSFounderFundingCaseStudy() {
