@@ -2,8 +2,8 @@
 
 import React from "react";
 import Link from "next/link";
-import GlassCard from "@/components/GlassCard";
-
+import FaqAccordion from '@/components/ui/FAQAccordion';
+import { GlassCard } from '@/components/ui/glass-card';
 // ==========================
 // TemplateBlock Component
 // Nicely formatted post template block
