@@ -550,13 +550,13 @@ export default function Page() {
               <b>Strategic emojis (0–2 max):</b> Use only to add tone, flag hierarchy, or break monotony.
             </li>
             <li>
-              <b>Active verbs first:</b> “Quit skipping X. Try this formula.” > “Here are tips to...”
+              <b>Active verbs first:</b> “Quit skipping X. Try this formula.” &gt; “Here are tips to...”
             </li>
             <li>
               <b>Personalize for your ICP:</b> Call out the reader with “For B2B founders in SaaS ...”
             </li>
             <li>
-              <b>Numbers and specifics rule:</b> “97% of $1M founders missed this...” > “You’re missing out...”
+              <b>Numbers and specifics rule:</b> “97% of $1M founders missed this...” &gt; “You’re missing out...”
             </li>
             <li>
               <b>Match hook style to post intent:</b> Carousels love questions/stats, stories love micro-anecdotes.

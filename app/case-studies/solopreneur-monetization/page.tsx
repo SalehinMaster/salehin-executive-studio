@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { GlassCard } from '../../../src/components/ui/glass-card';
-import FloatingCTA from "@/components/FloatingCTA";
+import FloatingCTA from '../../../src/components/ui/FloatingCTA';
 
 export default function SolopreneurMonetizationCaseStudy() {
   return (
@@ -82,7 +82,7 @@ export default function SolopreneurMonetizationCaseStudy() {
               <span className="text-amber-200 font-semibold">Frictionless Lead Capture:</span>{" "}
               LinkedIn post CTA feeds directly to a glowing, single-page email opt-in.
               <span className="block text-amber-100/70 text-xs mt-1 ml-2">
-                • >38% opt-in conversion; no complicated branching or quizzes.
+                • &gt;38% opt-in conversion; no complicated branching or quizzes.
               </span>
             </li>
             <li>
