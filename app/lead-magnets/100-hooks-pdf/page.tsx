@@ -112,14 +112,14 @@ export default function LeadMagnet100HooksPage() {
       };
 
       // Try 'crm_leads' first, fallback to 'leads'
-      let { error } = await supabase
-        ?.from("crm_leads")
-        .insert([lead]);
+      const response = await supabase
+  ?.from("crm_leads")
+  .insert([lead]);
 
-      if (error?.message?.includes("relation") || error?.code === "42P01") {
-        // If crm_leads doesn't exist, try 'leads'
-        ({ error } = await supabase?.from("leads").insert([lead]));
-      }
+let error = response?.error;
+
+const fallbackResponse = await supabase?.from("leads").insert([lead]);
+error = fallbackResponse?.error;
 
       if (error) throw error;
 
